@@ -1,10 +1,10 @@
 # What the FiT
 
-This is a fitness based app that tracks the daily activities that includes step counts, heart rate pulse rate monitors. Kotlin language is used to develop the app. The app is supported for android SDK version 24 and above.
+This is a fitness based app which tracks the daily activities that includes step counts, heart rate monitors. Kotlin language is used to develop the app. The app is supported for android SDK version 24 and above.
 
 ## Getting Started
 
-Clone the project and use it at you own ease
+Clone the project and use it at your ease
 
 ### Prerequisites
 
