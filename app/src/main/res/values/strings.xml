@@ -1,6 +1,23 @@
 <resources>
     <string name="app_name">RunningApp</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">running.app@metropolia.fi</string>
+    <string name="nav_header_desc">Running App</string>
+
+    <string name="menu_activity">Activity</string>
+    <string name="menu_heartrate">HeartRate</string>
+    <string name="menu_bmi">BMI</string>
+    <string name="menu_help">Help</string>
+    <string name="menu_history">History</string>
+    <string name="menu_profile">Profile</string>
+    <string name="menu_editprofile">EditProfile</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_exit">Exit</string>
+    <string name="go2activity">Go2Activity</string>
+    <string name="go2heartrate">Go2HeartRate</string>
+    <string name="setting">Setting</string>
+
 </resources>
+

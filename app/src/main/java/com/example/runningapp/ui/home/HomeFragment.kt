@@ -8,7 +8,10 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import com.example.runningapp.R
+import kotlinx.android.synthetic.main.fragment_home.view.*
 
 class HomeFragment : Fragment() {
 
@@ -26,6 +29,16 @@ class HomeFragment : Fragment() {
         homeViewModel.text.observe(this, Observer {
             textView.text = it
         })
+
+        // Two different ways to navigate from one fragment to another
+        root.go2activity_button.setOnClickListener(
+            Navigation.createNavigateOnClickListener(R.id.action_nav_home_to_nav_activity, null)
+        )
+
+
+        root.go2heartrate_button.setOnClickListener { view ->
+            view.findNavController().navigate(R.id.action_nav_home_to_nav_heartrate)
+        }
         return root
     }
 }

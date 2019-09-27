@@ -3,23 +3,76 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@id/nav_home">
+
 
     <fragment
-        android:id="@+id/navigation_home"
+        android:id="@+id/nav_home"
         android:name="com.example.runningapp.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_nav_home_to_nav_activity"
+            app:destination="@id/nav_activity" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_heartrate"
+            app:destination="@id/nav_heartrate" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_profile"
+            app:destination="@id/nav_profile" />
+    </fragment>
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.runningapp.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/nav_activity"
+        android:name="com.example.runningapp.ui.activity.ActivityFragment"
+        android:label="@string/menu_activity"
+        tools:layout="@layout/fragment_activity" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.runningapp.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/nav_heartrate"
+        android:name="com.example.runningapp.ui.heartrate.HeartRateFragment"
+        android:label="@string/menu_heartrate"
+        tools:layout="@layout/fragment_heartrate" />
+
+    <fragment
+        android:id="@+id/nav_bmi"
+        android:name="com.example.runningapp.ui.bmi.BMIFragment"
+        android:label="@string/menu_bmi"
+        tools:layout="@layout/fragment_bmi" />
+
+    <fragment
+        android:id="@+id/nav_help"
+        android:name="com.example.runningapp.ui.help.HelpFragment"
+        android:label="@string/menu_help"
+        tools:layout="@layout/fragment_help" />
+
+    <fragment
+        android:id="@+id/nav_history"
+        android:name="com.example.runningapp.ui.history.HistoryFragment"
+        android:label="@string/menu_history"
+        tools:layout="@layout/fragment_history" />
+
+    <fragment
+        android:id="@+id/nav_exit"
+        android:name="com.example.runningapp.ui.exit.ExitFragment"
+        android:label="@string/menu_history"
+        tools:layout="@layout/fragment_exit" />
+
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="com.example.runningapp.ui.profile.ProfileFragment"
+        android:label="@string/menu_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_nav_profile_to_nav_editProfile"
+            app:destination="@id/nav_editProfile" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_editProfile"
+        android:name="com.example.runningapp.ui.editprofile.EditProfileFragment"
+        android:label="@string/menu_editprofile"
+        tools:layout="@layout/fragment_editprofile" />
+
+
 </navigation>

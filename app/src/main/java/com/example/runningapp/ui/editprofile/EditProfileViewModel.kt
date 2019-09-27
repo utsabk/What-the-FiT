@@ -1,13 +1,13 @@
-package com.example.runningapp.ui.home
+package com.example.runningapp.ui.editprofile
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class HomeViewModel : ViewModel() {
+class EditProfileViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is Home Fragment"
+        value = "This is EditProfile Fragment"
     }
     val text: LiveData<String> = _text
 }
