@@ -19,5 +19,42 @@
     <string name="go2heartrate">Go2HeartRate</string>
     <string name="setting">Setting</string>
 
+
+
+    <!-- Layout for MapTypes -->
+    <string name="traffic">Traffic</string>
+    <string name="my_location">My Location</string>
+    <string name="buildings">Buildings</string>
+    <string name="indoor">Indoor</string>
+
+    <string name="none_map">None</string>
+    <string name="hybrid">Hybrid</string>
+    <string name="satellite">Satellite</string>
+    <string name="terrain">Terrain</string>
+    <string name="normal">Normal</string>
+    <string-array name="layers_array">
+        <item>@string/normal</item>
+        <item>@string/hybrid</item>
+        <item>@string/satellite</item>
+        <item>@string/terrain</item>
+        <item>@string/none_map</item>
+    </string-array>
+
+    <string name="layers_demo_label">Layers</string>
+    <string name="layers_demo_description">Demonstrates the different map layers.</string>
+    <string name="ok">OK</string>
+    <string name="distance">DISTANCE(KM)</string>
+    <string name="speed">AVG.SPEED(KM/HR)</string>
+    <string name="duration">DURATION</string>
+    <string name="calories">CALORIE</string>
+    <string name="notification_title">Running</string>
+
+
+
+    <string name="zero_dot">0.00</string>
+    <string name="zero_colon">0:00</string>
+    <string name="zero">0</string>
+
+
 </resources>
 

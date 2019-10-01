@@ -22,11 +22,11 @@
             app:destination="@id/nav_profile" />
     </fragment>
 
-    <fragment
+    <activity
         android:id="@+id/nav_activity"
-        android:name="com.example.runningapp.ui.activity.ActivityFragment"
+        android:name="com.example.runningapp.ui.activity.RunningTrackerActivity"
         android:label="@string/menu_activity"
-        tools:layout="@layout/fragment_activity" />
+        tools:layout="@layout/activity_maps" />
 
     <fragment
         android:id="@+id/nav_heartrate"
