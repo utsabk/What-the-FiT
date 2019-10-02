@@ -23,7 +23,7 @@
     <!-- A set of test checkboxes. -->
     <include
         android:id="@+id/timerDistanceInclude"
-        layout="@layout/timer_distance"
+        layout="@layout/layout_timer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:id="@+id/include2"
-        layout="@layout/activity_maptype"
+        layout="@layout/layout_maptype"
         android:layout_marginEnd="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

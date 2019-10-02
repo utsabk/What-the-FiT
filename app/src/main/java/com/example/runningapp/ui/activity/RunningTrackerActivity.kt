@@ -3,7 +3,10 @@ package com.example.runningapp.ui.activity
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.*
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.graphics.BitmapFactory
@@ -33,8 +36,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolylineOptions
 import kotlinx.android.synthetic.main.activity_maps.*
-import kotlinx.android.synthetic.main.timer_distance.*
-import kotlin.collections.ArrayList
+import kotlinx.android.synthetic.main.layout_timer.*
 
 
 class RunningTrackerActivity : AppCompatActivity(),
@@ -82,8 +84,11 @@ class RunningTrackerActivity : AppCompatActivity(),
                 BROADCAST_ACTION_TIME -> {
                     measuredTimeInMillis =
                         intent.getLongExtra(RunningTrackerService.MILLIS_DATA_KEY, 0L)
-                    Log.d("Tag","TimeINMills:---$measuredTimeInMillis")
-                    if (measuredTimeInMillis == 0L) Log.w("broadcastreceiver", "service returned time 0")
+                    Log.d("Tag", "TimeINMills:---$measuredTimeInMillis")
+                    if (measuredTimeInMillis == 0L) Log.w(
+                        "broadcastreceiver",
+                        "service returned time 0"
+                    )
                     time.base = SystemClock.elapsedRealtime() - measuredTimeInMillis
                 }
                 BROADCAST_ACTION_LOCATION -> {
@@ -95,12 +100,12 @@ class RunningTrackerActivity : AppCompatActivity(),
                         distanceInMeters =
                             routeSections.sumByDouble { section -> section.distance.toDouble() }
 
-                        Log.d("Tag","DistanceInmeters:---$distanceInMeters")
+                        Log.d("Tag", "DistanceInmeters:---$distanceInMeters")
 
-                        tracked_distance.text = "%.2f".format(distanceInMeters/1000)
+                        tracked_distance.text = "%.2f".format(distanceInMeters / 1000)
 
-                        val speed = speedCalc(distanceInMeters , measuredTimeInMillis)
-                        tracked_speed.text = String.format("%.2f",speed)
+                        val speed = speedCalc(distanceInMeters, measuredTimeInMillis)
+                        tracked_speed.text = String.format("%.2f", speed)
 
 //                        if (sharedPref == null) return
 //                        val weight = sharedPref!!.getInt(getString(R.string.preference_weight), 62)
@@ -114,9 +119,6 @@ class RunningTrackerActivity : AppCompatActivity(),
             }
         }
     }
-
-
-
 
 
     @SuppressLint("SetTextI18n")
@@ -214,7 +216,6 @@ class RunningTrackerActivity : AppCompatActivity(),
             onItemSelectedListener = this@RunningTrackerActivity
         }
 
-        myLocationCheckbox = findViewById(R.id.my_location)
         buildingsCheckbox = findViewById(R.id.buildings)
         indoorCheckbox = findViewById(R.id.indoor)
         trafficCheckbox = findViewById(R.id.traffic)
@@ -228,17 +229,16 @@ class RunningTrackerActivity : AppCompatActivity(),
 
         updateMapType()
 
+        // Must deal with the location checkbox separately as must check that
+        // location permission have been granted before enabling the 'My Location' layer.
+        AppPermissions(this, this, mMap).checkPermission()
+
+
         // check the state of all checkboxes and update the map accordingly
         with(mMap) {
             isTrafficEnabled = trafficCheckbox.isChecked
             isBuildingsEnabled = buildingsCheckbox.isChecked
             isIndoorEnabled = indoorCheckbox.isChecked
-        }
-
-        // Must deal with the location checkbox separately as must check that
-        // location permission have been granted before enabling the 'My Location' layer.
-        if (myLocationCheckbox.isChecked) {
-            AppPermissions(this, this, mMap).checkPermission()
         }
 
 
@@ -255,14 +255,6 @@ class RunningTrackerActivity : AppCompatActivity(),
             mMap.isIndoorEnabled = indoorCheckbox.isChecked
         }
 
-        // if this box is checked, must check for permission before enabling the My Location layer
-        myLocationCheckbox.setOnClickListener {
-            if (!myLocationCheckbox.isChecked) {
-                mMap.isMyLocationEnabled = false
-            } else {
-                AppPermissions(this, this, mMap).checkPermission()
-            }
-        }
         mMap.uiSettings.isZoomControlsEnabled = true
 
 
@@ -286,7 +278,7 @@ class RunningTrackerActivity : AppCompatActivity(),
             getString(R.string.none_map) -> GoogleMap.MAP_TYPE_NONE
             else -> {
                 mMap.mapType // do not change map type
-                Log.e(TAG, "Error setting layer with name ${spinner.selectedItem}")
+                Log.e(TAG, "Error tool_bar_menu layer with name ${spinner.selectedItem}")
             }
         }
     }
@@ -429,8 +421,8 @@ class RunningTrackerActivity : AppCompatActivity(),
 
     }
 
-    private fun speedCalc(distanceMeter: Double, timeMilliSec: Long ):Double{
-       return (distanceMeter * 3600)/timeMilliSec
+    private fun speedCalc(distanceMeter: Double, timeMilliSec: Long): Double {
+        return (distanceMeter * 3600) / timeMilliSec
     }
 
     enum class TimerState { Idle, Running, Paused }
