@@ -23,7 +23,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         homeViewModel =
-            ViewModelProviders.of(this).get(HomeViewModel::class.java)
+                ViewModelProviders.of(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         val textView: TextView = root.findViewById(R.id.text_home)
         homeViewModel.text.observe(this, Observer {
@@ -32,12 +32,12 @@ class HomeFragment : Fragment() {
 
         // Two different ways to navigate from one fragment to another
         root.go2activity_button.setOnClickListener(
-            Navigation.createNavigateOnClickListener(R.id.action_nav_home_to_nav_activity, null)
+            Navigation.createNavigateOnClickListener(R.id.action_navigation_home_to_navigation_activity, null)
         )
 
 
         root.go2heartrate_button.setOnClickListener { view ->
-            view.findNavController().navigate(R.id.action_nav_home_to_nav_heartrate)
+            view.findNavController().navigate(R.id.action_navigation_home_to_nav_heartrate)
         }
         return root
     }

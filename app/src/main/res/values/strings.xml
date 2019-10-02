@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">RunningApp</string>
+    <string name="title_home">Home</string>
+    <string name="title_activity">Activity</string>
+    <string name="title_profile">Profile</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -54,6 +57,8 @@
     <string name="zero_dot">0.00</string>
     <string name="zero_colon">0:00</string>
     <string name="zero">0</string>
+    <string name="placeholder4HelpActivity">This is help Activity</string>
+    <string name="placeholder4EditProfileActivity">This is EditProfile Activity</string>
 
 
 </resources>

@@ -93,8 +93,6 @@ class RunningTrackerService : Service() {
                             )
                         )
                     )
-
-
                 }
 
                 Log.d("Tag", "$locations")
@@ -183,7 +181,8 @@ class RunningTrackerService : Service() {
         //On Failure show a dialog box to user for asking user’s location settings turned on
         task.addOnFailureListener { exception ->
             if (exception is ResolvableApiException) {
-                Log.d("Tag", "I am inside ResolvableApiException")
+
+
                 val pendingIntent: PendingIntent = exception.resolution
                 client.applicationContext.startActivity(
                     Intent(
