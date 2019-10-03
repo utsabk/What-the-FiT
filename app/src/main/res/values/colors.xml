@@ -9,5 +9,8 @@
     <color name="fab_color_go">#7fd615</color>
     <color name="fab_color_pause">#fce205</color>
     <color name="fab_color_stop">#ff2222</color>
+    <color name="route_color">#0080ff</color>
+    <color name="text_color_black">#111</color>
+    <color name="text_color_black_light">#222</color>
 
 </resources>

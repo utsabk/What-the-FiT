@@ -5,6 +5,6 @@ import com.google.android.gms.maps.model.LatLng
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class Location(val latitude: Double, val longitude: Double) : Parcelable{
+data class Location(val latitude: Double, val longitude: Double):Parcelable{
     fun toLatLng(): LatLng = LatLng(latitude, longitude)
 }

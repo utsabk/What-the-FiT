@@ -47,7 +47,11 @@
     <string name="layers_demo_description">Demonstrates the different map layers.</string>
     <string name="ok">OK</string>
     <string name="distance">DISTANCE(KM)</string>
-    <string name="speed">AVG.SPEED(KM/HR)</string>
+
+    <string name="avg_speed">AVG.SPEED(KM/HR)</string>
+
+    <string name="speed">SPEED(KM/HR)</string>
+
     <string name="duration">DURATION</string>
     <string name="calories">CALORIE</string>
     <string name="notification_title">Running</string>
@@ -59,6 +63,16 @@
     <string name="zero">0</string>
     <string name="placeholder4HelpActivity">This is help Activity</string>
     <string name="placeholder4EditProfileActivity">This is EditProfile Activity</string>
+
+
+    <!-- Last Training details -->
+    <string name="summary">Summary</string>
+    <string name="status">Status</string>
+    <string name="time">Time</string>
+    <string name="pace">Avg. pace</string>
+    <string name="water">Water intake</string>
+    <string name="status_hint">How did your training go?</string>
+
 
 
 </resources>

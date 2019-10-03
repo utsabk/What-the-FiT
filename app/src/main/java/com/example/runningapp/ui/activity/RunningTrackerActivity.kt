@@ -23,6 +23,7 @@ import androidx.core.content.ContextCompat
 import com.example.runningapp.AppPermissions
 import com.example.runningapp.LOCATION_REQUEST_CODE
 import com.example.runningapp.R
+import com.example.runningapp.TrainingDetailsActivity
 import com.example.runningapp.models.RouteSection
 import com.example.runningapp.services.RunningTrackerService
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -37,6 +38,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolylineOptions
 import kotlinx.android.synthetic.main.activity_maps.*
 import kotlinx.android.synthetic.main.layout_timer.*
+import kotlin.math.roundToInt
 
 
 class RunningTrackerActivity : AppCompatActivity(),
@@ -56,9 +58,7 @@ class RunningTrackerActivity : AppCompatActivity(),
 
 
     companion object {
-        private const val LOCATION_PERMISSION_REQUEST_CODE = 1
         const val REQUEST_CHECK_SETTINGS = 2
-
 
         private var timerState = TimerState.Idle
 
@@ -66,7 +66,7 @@ class RunningTrackerActivity : AppCompatActivity(),
         private var distanceInMeters = 0.0
         private var measuredCalories = 0
 
-        private var routeSections = arrayListOf<RouteSection>()
+        private var routeSections:List<RouteSection> = ArrayList()
 
         const val BROADCAST_ACTION_LOCATION =
             "com.example.runningapp.ui.activity.runningTrackerActivity.broadcastreceiverlocation"
@@ -74,9 +74,21 @@ class RunningTrackerActivity : AppCompatActivity(),
             "com.example.runningapp.ui.activity.runningTrackerActivity.broadcastreceivertime"
         const val BROADCAST_ACTION_STOP_TIMER =
             "com.example.runningapp.ui.activity.runningTrackerActivity.broadcastreceiverstoptimer"
+        const val TIME_DATA_KEY =
+            "com.example.runningapp.ui.activity.runningTrackerActivity.timedatakey"
+        const val ROUTE_SECTIONS_DATA_KEY =
+            "com.example.runningapp.ui.activity.runningTrackerActivity.routesectionsdatakey"
+        const val CALORIES_DATA_KEY =
+            "com.example.runningapp.ui.activity.runningTrackerActivity.caloriesdatakey"
+        const val MODE_DATA_KEY =
+            "com.example.runningapp.ui.activity.runningTrackerActivity.modedatakey"
+        const val STATUS_DATA_KEY =
+            "com.example.runningapp.ui.activity.runningTrackerActivity.status"
+
+
     }
 
-
+   // Receives and handles broadcast intents sent by Service class via sendBroadcast(Intent)
     private val runningTrackerBroadcastReceiver = object : BroadcastReceiver() {
         @SuppressLint("SetTextI18n")
         override fun onReceive(context: Context?, intent: Intent?) {
@@ -104,13 +116,13 @@ class RunningTrackerActivity : AppCompatActivity(),
 
                         tracked_distance.text = "%.2f".format(distanceInMeters / 1000)
 
-                        val speed = speedCalc(distanceInMeters, measuredTimeInMillis)
+                        val speed = speedCalc(distanceInMeters, measuredTimeInMillis.toDouble())
                         tracked_speed.text = String.format("%.2f", speed)
 
-//                        if (sharedPref == null) return
-//                        val weight = sharedPref!!.getInt(getString(R.string.preference_weight), 62)
-//                        measuredCalories = (0.001033416853125 * weight.toDouble() * distanceInMeters).toInt()
-//                        metrics_calories.text = measuredCalories.toString()
+
+                        val weight = 62
+                        measuredCalories = (0.001033416853125 * weight.toDouble() * distanceInMeters).toInt()
+                        calories_burned.text = measuredCalories.toString()
                     }
                 }
                 BROADCAST_ACTION_STOP_TIMER -> {
@@ -128,6 +140,7 @@ class RunningTrackerActivity : AppCompatActivity(),
 
         when (timerState) {
             TimerState.Idle -> {
+                // return the time since the system was booted, and include deep sleep
                 time.base = SystemClock.elapsedRealtime()
             }
             TimerState.Running -> {
@@ -162,10 +175,9 @@ class RunningTrackerActivity : AppCompatActivity(),
             intentFilter.addAction(BROADCAST_ACTION_TIME)
             intentFilter.addAction(BROADCAST_ACTION_STOP_TIMER)
             this.registerReceiver(runningTrackerBroadcastReceiver, intentFilter)
-            ContextCompat.startForegroundService(
-                this,
-                Intent(this, RunningTrackerService::class.java)
-            )
+
+            // Start the service from here
+            ContextCompat.startForegroundService(this, Intent(this, RunningTrackerService::class.java))
         }
         pause_fab_running.setOnClickListener {
             RunningTrackerService.pauseService = true
@@ -284,18 +296,6 @@ class RunningTrackerActivity : AppCompatActivity(),
     }
 
 
-    private fun placeMarkerOnMap(location: LatLng) {
-        val markerOptions = MarkerOptions().position(location)
-        markerOptions.icon(
-            BitmapDescriptorFactory.fromBitmap(
-                BitmapFactory.decodeResource(resources, R.drawable.ic_user_location)
-            )
-        )
-        mMap.addMarker(markerOptions)
-    }
-
-    //  mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12.0f))
-
     override fun onMyLocationClick(location: Location) {
         Toast.makeText(this, "Current location:\n" + location, Toast.LENGTH_LONG).show();
     }
@@ -316,6 +316,7 @@ class RunningTrackerActivity : AppCompatActivity(),
         return false
     }
 
+    // This function is triggered when user chooses an option from permission dialogue
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>, grantResults: IntArray
@@ -355,23 +356,16 @@ class RunningTrackerActivity : AppCompatActivity(),
         }
     }
 
-
-    private fun setUpMap() {
-        if (this == null) return
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                android.Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
-                LOCATION_PERMISSION_REQUEST_CODE
+    private fun placeMarkerOnMap(location: LatLng) {
+        val markerOptions = MarkerOptions().position(location)
+        markerOptions.icon(
+            BitmapDescriptorFactory.fromBitmap(
+                BitmapFactory.decodeResource(resources, R.drawable.ic_user_location)
             )
-            return
-        }
-        mMap.isMyLocationEnabled = true
+        )
+        mMap.addMarker(markerOptions)
     }
+
 
     private fun fillMap() {
         try {
@@ -380,7 +374,8 @@ class RunningTrackerActivity : AppCompatActivity(),
             Log.w("Google map", "fillMap() invoked with uninitialized googleMap")
             return
         }
-        for (i in 0 until routeSections.size) {
+        // Iterate through all the routeSections
+        for (i in  routeSections.indices) {
             mMap.addPolyline(
                 PolylineOptions().add(
                     routeSections[i].beginning.toLatLng(),
@@ -389,6 +384,10 @@ class RunningTrackerActivity : AppCompatActivity(),
             )
         }
         if (routeSections.isNotEmpty()) {
+            // Marker at beginning of the Journey
+            mMap.addMarker(MarkerOptions().position(routeSections[0].beginning.toLatLng()))
+
+           //Marker at the last of the Journey
             placeMarkerOnMap(routeSections.last().end.toLatLng())
             mMap.animateCamera(
                 CameraUpdateFactory.newLatLngZoom(
@@ -403,6 +402,7 @@ class RunningTrackerActivity : AppCompatActivity(),
     private fun stopTimer() {
         timerState = TimerState.Idle
 
+        // Stop the service from running
         this.stopService(Intent(this, RunningTrackerService::class.java))
         this.unregisterReceiver(runningTrackerBroadcastReceiver)
         @Suppress("UNCHECKED_CAST")
@@ -410,6 +410,7 @@ class RunningTrackerActivity : AppCompatActivity(),
         routeSections = ArrayList()
         mMap.clear()
 
+        // return the time since the system was booted, and include deep sleep
         time.base = SystemClock.elapsedRealtime()
         tracked_speed.text = getString(R.string.zero_colon)
         tracked_distance.text = getString(R.string.zero_dot)
@@ -419,10 +420,23 @@ class RunningTrackerActivity : AppCompatActivity(),
         pause_fab_running.hide()
         go_fab_idle.show()
 
+
+        if (localRouteSections.size < 1) return
+        val intent = Intent(this, TrainingDetailsActivity::class.java)
+            .putExtra(TIME_DATA_KEY, measuredTimeInMillis)
+            .putParcelableArrayListExtra(ROUTE_SECTIONS_DATA_KEY, localRouteSections)
+            .putExtra(CALORIES_DATA_KEY, measuredCalories)
+            .putExtra(MODE_DATA_KEY, false)
+        startActivity(intent)
+
+
+
     }
 
-    private fun speedCalc(distanceMeter: Double, timeMilliSec: Long): Double {
-        return (distanceMeter * 3600) / timeMilliSec
+    private fun speedCalc(distanceMeter: Double, timeMilliSec: Double): Double {
+        return((distanceMeter * 360000.0) / timeMilliSec.roundToInt())/100
+       // ((distanceMeter * 360000.0) / timeMilliSec.toDouble()).roundToInt() / 100.0
+
     }
 
     enum class TimerState { Idle, Running, Paused }
