@@ -1,8 +1,7 @@
 package com.example.runningapp.services
 
-/* An application's facility that tells the system about something
-it wants to be doing in the background (even when the user is not directly
-interacting with the application)*/
+/* A component that can perform long-running operations in the background,
+ and it doesn't provide a user interface*/
 
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -47,7 +46,9 @@ class RunningTrackerService : Service() {
         private var timer = Timer()
         var pauseService = false
 
+        // We use it on Notification start, and to cancel it.
         const val NOTIFICATION_ID = 1
+
         const val MILLIS_DATA_KEY = "com.example.runningapp.trackactivityservice.millisdatakey"
         const val ROUTE_SECTIONS_DATA_KEY =
             "com.example.runningapp.trackactivityservice.routesectionsdatakey"
@@ -60,7 +61,7 @@ class RunningTrackerService : Service() {
 
         return null
     }
-
+    // Called by the system when the service is first created.
     override fun onCreate() {
         super.onCreate()
         context = this
@@ -105,6 +106,7 @@ class RunningTrackerService : Service() {
                     ROUTE_SECTIONS_DATA_KEY,
                     locations as ArrayList<out Parcelable>
                 )
+                //all receivers matching this Intent will receive the broadcast
                 sendBroadcast(intent)
 
             }
@@ -113,7 +115,7 @@ class RunningTrackerService : Service() {
         startService()
     }
 
-
+    // Called by the system to notify a Service that it is no longer used and is being removed.
     override fun onDestroy() {
         super.onDestroy()
 
@@ -139,7 +141,7 @@ class RunningTrackerService : Service() {
         createLocationRequest()
 
 
-        val notificationIntent = Intent(this, MainActivity::class.java)
+        val notificationIntent = Intent(this, RunningTrackerActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0)
 
         val notification = NotificationCompat.Builder(context, CHANNEL_ID)
@@ -149,11 +151,13 @@ class RunningTrackerService : Service() {
             .setContentIntent(pendingIntent)
             .build()
 
+        // To request that your service run in the foreground
         startForeground(NOTIFICATION_ID, notification)
 
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        // used for services that should only remain running while processing any commands sent to them
         return START_NOT_STICKY
     }
 
@@ -181,7 +185,6 @@ class RunningTrackerService : Service() {
         //On Failure show a dialog box to user for asking user’s location settings turned on
         task.addOnFailureListener { exception ->
             if (exception is ResolvableApiException) {
-
 
                 val pendingIntent: PendingIntent = exception.resolution
                 client.applicationContext.startActivity(
@@ -223,7 +226,7 @@ class RunningTrackerService : Service() {
         override fun run() {
             if (!pauseService) {
 
-                val notificationIntent = Intent(context, MainActivity::class.java)
+                val notificationIntent = Intent(context, RunningTrackerActivity::class.java)
                 val pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0)
                 val timeFormatted =
                     if (currentTimeInMillis >= 3600000)
@@ -251,6 +254,7 @@ class RunningTrackerService : Service() {
                     (locations.sumByDouble { section -> section.distance.toDouble() } * 100.0).roundToInt() / 100.0
 
 
+                // Set the info for the views that show in the notification panel.
                 val notification = NotificationCompat.Builder(context, CHANNEL_ID)
                     .setContentTitle(getString(R.string.notification_title))
                     .setContentText(timeFormatted.plus(" ").plus(distance.toString()))

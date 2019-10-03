@@ -3,6 +3,7 @@ package com.example.runningapp
 import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.media.RingtoneManager
 import android.os.Build
 import androidx.annotation.RequiresApi
 
@@ -22,9 +23,8 @@ class App : Application() {
     @RequiresApi(26)
     private fun createNotificationChannel() {
         val notificationChannel =
-            NotificationChannel(CHANNEL_ID, "Timer Service Channel", NotificationManager.IMPORTANCE_DEFAULT)
-
+            NotificationChannel(CHANNEL_ID, "Timer Service Channel", NotificationManager.IMPORTANCE_LOW)
         val manager = getSystemService(NotificationManager::class.java)
-        manager.createNotificationChannel(notificationChannel)
+        manager?.createNotificationChannel(notificationChannel)
     }
 }

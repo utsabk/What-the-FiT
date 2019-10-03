@@ -10,7 +10,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.gms.maps.GoogleMap
 
-val LOCATION_REQUEST_CODE = 101
+const val LOCATION_REQUEST_CODE = 101
 
 class AppPermissions(val context: Context?, val activity: Activity, val map: GoogleMap) {
     fun checkPermission() {
@@ -29,7 +29,7 @@ class AppPermissions(val context: Context?, val activity: Activity, val map: Goo
                 builder.setMessage("Permission to access the location is required for this app to get current location.")
                     .setTitle("Permission required")
 
-                builder.setPositiveButton("OK") { dialog, id ->
+                builder.setPositiveButton("OK") { _, _ ->
                     makeRequest()
                 }
                 val dialog = builder.create()

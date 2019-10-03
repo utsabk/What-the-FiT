@@ -5,8 +5,9 @@ import kotlinx.android.parcel.IgnoredOnParcel
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class RouteSection(val beginning: Location, val end: Location) : Parcelable {
+data class RouteSection(val beginning: Location, val end: Location): Parcelable  {
 
+    // The inline class annotated with @IgnoredOnParcel
     @IgnoredOnParcel
     var distance = 0F
         get(){

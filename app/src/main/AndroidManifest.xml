@@ -46,6 +46,7 @@
             android:name=".ui.activity.RunningTrackerActivity" />
         <activity android:name=".ui.editprofile.EditProfileActivity" />
         <activity android:name=".ui.help.HelpActivity" />
+        <activity android:name=".TrainingDetailsActivity" />
 
         <service android:name=".services.RunningTrackerService" />
     </application>
