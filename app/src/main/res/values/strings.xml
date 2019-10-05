@@ -114,6 +114,7 @@
         your profile data, to make app\'s measurements more accurate</string>
     <string name="calorieburn">Calorieburn</string>
     <string name="achievement">achievement</string>
+    <string name="runningicon">runningicon</string>
 
     <string-array name="genders_array">
         <item>Male</item>

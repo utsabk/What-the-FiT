@@ -53,8 +53,30 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     implementation 'com.google.android.material:material:1.0.0'
-
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
+
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'com.pavelsikun:material-seekbar-preference:2.3.0'
+
+    // Lifecycle components
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
+    kapt "androidx.lifecycle:lifecycle-compiler:$rootProject.archLifecycleVersion"
+
+    // Room
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+
+    // Coroutines
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutines"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutines"
+
+    // ViewModel Kotlin support
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.archLifecycleVersion"
+
+    //Gson
+    implementation 'com.google.code.gson:gson:2.8.5'
+
+
 
 }
 //Automatic Parcelable implementation generator
@@ -62,3 +84,4 @@ androidExtensions {
     experimental = true
 
 }
+
