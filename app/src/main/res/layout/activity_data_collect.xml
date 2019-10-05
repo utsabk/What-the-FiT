@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerInParent="true"
+    android:layout_marginTop="@dimen/collect_data_margin_top"
+    android:orientation="vertical"
+    android:padding="@dimen/collect_data_padding"
+    tools:context=".CollectDataActivity">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/profile_first_name_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/first_name" />
+
+        <EditText
+            android:id="@+id/profile_first_name"
+            android:layout_width="@dimen/edit_text_width"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/profile_first_name_text"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:gravity="center_horizontal"
+            android:inputType="textPersonName"
+            tools:ignore="Autofill,LabelFor" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/profile_last_name_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/last_name" />
+
+        <EditText
+            android:id="@+id/profile_last_name"
+            android:layout_width="@dimen/edit_text_width"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/profile_last_name_text"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:gravity="center_horizontal"
+            android:inputType="textPersonName"
+            tools:ignore="Autofill,LabelFor" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/profile_height_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/height" />
+
+        <EditText
+            android:id="@+id/profile_height"
+            android:layout_width="@dimen/edit_text_width"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/profile_height_text"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:gravity="center_horizontal"
+            android:inputType="number"
+            tools:ignore="Autoƒill,LabelFor" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/profile_weight_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/weight" />
+
+        <EditText
+            android:id="@+id/profile_weight"
+            android:layout_width="@dimen/edit_text_width"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/profile_weight_text"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:gravity="center_horizontal"
+            android:inputType="number"
+            tools:ignore="Autofill,LabelFor" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/profile_gender_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/gender" />
+
+        <Spinner
+            android:id="@+id/profile_gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/profile_gender_text"
+            android:layout_alignParentEnd="true"
+            android:entries="@array/genders_array" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/profile_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/data_collect_save" />
+
+
+</LinearLayout>
