@@ -23,7 +23,6 @@
     <string name="setting">Setting</string>
 
 
-
     <!-- Layout for MapTypes -->
     <string name="traffic">Traffic</string>
     <string name="my_location">My Location</string>
@@ -57,7 +56,6 @@
     <string name="notification_title">Running</string>
 
 
-
     <string name="zero_dot">0.00</string>
     <string name="zero_colon">0:00</string>
     <string name="zero">0</string>
@@ -73,6 +71,54 @@
     <string name="water">Water intake</string>
     <string name="status_hint">How did your training go?</string>
 
+
+    <!-- data collect -->
+    <string name="first_name">Firstname</string>
+    <string name="last_name">Lastname</string>
+
+    <string name="height">Height</string>
+    <string name="gender">Gender</string>
+    <string name="weight">Weight</string>
+    <string name="data_collect_save">Save</string>
+
+    <string name="preference_key" templateMergeStrategy="preserve">
+        com.example.runningapp.PREFERENCE_KEY</string>
+
+    <string name="preference_first_launch" templateMergeStrategy="preserve" >
+        com.example.runningapp.firstlaunch
+    </string>
+
+    <string name="preference_first_name" templateMergeStrategy="preserve" >
+        com.example.runningapp.firstname
+    </string>
+
+    <string name="preference_last_name" templateMergeStrategy="preserve" >
+        com.example.runningapp.lastname
+    </string>
+
+    <string name="preference_weight" templateMergeStrategy="preserve" >
+        com.example.runningapp.weight
+    </string>
+
+    <string name="preference_height" templateMergeStrategy="preserve" >
+         com.example.runningapp.height
+    </string>
+
+    <string name="preference_gender" templateMergeStrategy="preserve" >
+         com.example.runningapp.gender
+    </string>
+
+    <string name="validation_error">Incorrectly filled fields</string>
+    <string name="launch_title">Hello, new user</string>
+    <string name="launch_message">Before you start using RunningApp, I strongly advise you to set up
+        your profile data, to make app\'s measurements more accurate</string>
+    <string name="calorieburn">Calorieburn</string>
+    <string name="achievement">achievement</string>
+
+    <string-array name="genders_array">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
 
 
 </resources>

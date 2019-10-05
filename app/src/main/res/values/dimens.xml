@@ -8,6 +8,7 @@
 
     <dimen name="fab_size">72dp</dimen>
     <dimen name="fab_padding">8dp</dimen>
+
     <dimen name="fabs_spacing">10dp</dimen>
 
     <!--last_training_details-->
@@ -21,6 +22,23 @@
     <dimen name="summary_icon_padding">4dp</dimen>
     <dimen name="summary_box_padding">12dp</dimen>
 
+
+
+    <!--last_training_details-->
+    <dimen name="map_height">256dp</dimen>
+    <dimen name="training_details_map_margin_bottom">8dp</dimen>
+    <dimen name="training_details_icon_text_spacing">6dp</dimen>
+    <dimen name="training_details_box_item_margin_top_bottom">6dp</dimen>
+    <dimen name="box_description_margin_start">20dp</dimen>
+    <dimen name="box_margin">12dp</dimen>
+    <dimen name="summary_icon_size">48dp</dimen>
+    <dimen name="summary_icon_padding">4dp</dimen>
+    <dimen name="summary_box_padding">12dp</dimen>
+
+    <!-- collect data -->
+    <dimen name="edit_text_width">150dp</dimen>
+    <dimen name="collect_data_padding">16dp</dimen>
+    <dimen name="collect_data_margin_top">250dp</dimen>
 
 
 </resources>

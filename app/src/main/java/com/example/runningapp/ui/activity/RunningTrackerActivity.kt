@@ -18,12 +18,11 @@ import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.runningapp.AppPermissions
 import com.example.runningapp.LOCATION_REQUEST_CODE
 import com.example.runningapp.R
-import com.example.runningapp.TrainingDetailsActivity
+import com.example.runningapp.WorkoutDetailsActivity
 import com.example.runningapp.models.RouteSection
 import com.example.runningapp.services.RunningTrackerService
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -422,7 +421,7 @@ class RunningTrackerActivity : AppCompatActivity(),
 
 
         if (localRouteSections.size < 1) return
-        val intent = Intent(this, TrainingDetailsActivity::class.java)
+        val intent = Intent(this, WorkoutDetailsActivity::class.java)
             .putExtra(TIME_DATA_KEY, measuredTimeInMillis)
             .putParcelableArrayListExtra(ROUTE_SECTIONS_DATA_KEY, localRouteSections)
             .putExtra(CALORIES_DATA_KEY, measuredCalories)

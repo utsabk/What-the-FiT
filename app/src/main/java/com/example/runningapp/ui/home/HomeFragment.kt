@@ -18,6 +18,7 @@ class HomeFragment : Fragment() {
     private lateinit var homeViewModel: HomeViewModel
 
     override fun onCreateView(
+
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -25,18 +26,18 @@ class HomeFragment : Fragment() {
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
-        val textView: TextView = root.findViewById(R.id.text_home)
+        /*val textView: TextView = root.findViewById(R.id.text_home)
         homeViewModel.text.observe(this, Observer {
             textView.text = it
-        })
+        })*/
 
         // Two different ways to navigate from one fragment to another
-        root.go2activity_button.setOnClickListener(
+        root.activity_card.setOnClickListener(
             Navigation.createNavigateOnClickListener(R.id.action_navigation_home_to_navigation_activity, null)
         )
 
 
-        root.go2heartrate_button.setOnClickListener { view ->
+        root.heart_rate_card.setOnClickListener { view ->
             view.findNavController().navigate(R.id.action_navigation_home_to_nav_heartrate)
         }
         return root
