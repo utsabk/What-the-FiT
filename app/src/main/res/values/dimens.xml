@@ -28,5 +28,12 @@
     <dimen name="collect_data_padding">16dp</dimen>
     <dimen name="collect_data_margin_top">250dp</dimen>
 
+    <!-- history_row -->
+    <dimen name="history_icon_size">18dp</dimen>
+    <dimen name="history_date_text_size">24sp</dimen>
+    <dimen name="history_row_spacing">8dp</dimen>
+    <dimen name="history_row_icon_text_spacing">4dp</dimen>
+
+
 
 </resources>

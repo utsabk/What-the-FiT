@@ -3,10 +3,7 @@ package com.example.runningapp.ui.activity
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
+import android.content.*
 import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.graphics.BitmapFactory
@@ -54,6 +51,8 @@ class RunningTrackerActivity : AppCompatActivity(),
     private lateinit var myLocationCheckbox: CheckBox
     private lateinit var buildingsCheckbox: CheckBox
     private lateinit var indoorCheckbox: CheckBox
+
+    private var sharedPref:SharedPreferences? = null
 
 
     companion object {
@@ -119,7 +118,7 @@ class RunningTrackerActivity : AppCompatActivity(),
                         tracked_speed.text = String.format("%.2f", speed)
 
 
-                        val weight = 62
+                        val weight =  sharedPref!!.getInt(getString(R.string.preference_weight), 65)
                         measuredCalories = (0.001033416853125 * weight.toDouble() * distanceInMeters).toInt()
                         calories_burned.text = measuredCalories.toString()
                     }
@@ -136,6 +135,11 @@ class RunningTrackerActivity : AppCompatActivity(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
+
+        sharedPref = getSharedPreferences(getString(R.string.preference_key),Context.MODE_PRIVATE)
+
+        timerState = TimerState.values()[sharedPref!!.getInt(getString(R.string.timer_state), 0)]
+
 
         when (timerState) {
             TimerState.Idle -> {

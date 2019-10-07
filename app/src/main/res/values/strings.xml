@@ -84,6 +84,9 @@
     <string name="preference_key" templateMergeStrategy="preserve">
         com.example.runningapp.PREFERENCE_KEY</string>
 
+    <string name="timer_state" templateMergeStrategy="preserve">
+        com.example.runningapp.timerstate
+    </string>
     <string name="preference_first_launch" templateMergeStrategy="preserve" >
         com.example.runningapp.firstlaunch
     </string>
@@ -121,6 +124,17 @@
         <item>Female</item>
     </string-array>
 
+
+    <!-- Recyclerview-->
+    <string name="icon_content_description">Icon</string>
+    <string name="confirm_delete">Are you sure you want to delete this training?</string>
+    <string name="positive_delete">Delete</string>
+    <string name="negative_delete">Cancel</string>
+
+    <!-- MainActivity -->
+    <string name="confirm_exit">Are you sure you want to exit this Application?</string>
+    <string name="positive_exit">Exit</string>
+    <string name="negative_exit">Cancel</string>
 
 </resources>
 

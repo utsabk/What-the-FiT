@@ -16,6 +16,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -29,9 +30,11 @@ import com.example.runningapp.utils.StepDetector
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlin.system.exitProcess
 
 
 class MainActivity : AppCompatActivity(), SensorEventListener, StepListener {
+    private lateinit var currentDestination:NavDestination
     private var simpleStepDetector: StepDetector? = null
     private var sensorManager: SensorManager? = null
     private val TEXT_NUM_STEPS = "Steps: "
@@ -76,7 +79,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener, StepListener {
 
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
-        val navController = findNavController(R.id.nav_host_fragment)
+       val navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         val navBarConfiguration = AppBarConfiguration(
@@ -87,6 +90,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener, StepListener {
 
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
+             currentDestination = destination
             if (destination.id != R.id.navigation_profile) {
                 menu_setting.visibility = View.GONE
             } else menu_setting.visibility = View.VISIBLE
@@ -172,7 +176,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener, StepListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.navigation_exit -> {
-                Toast.makeText(this, "Exit clicked", Toast.LENGTH_LONG).show()
+                exitApp()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -183,15 +187,30 @@ class MainActivity : AppCompatActivity(), SensorEventListener, StepListener {
         val builder = AlertDialog.Builder(this)
         builder.setTitle(getString(R.string.launch_title))
         builder.setMessage(getString(R.string.launch_message))
-
-        builder.setPositiveButton("OK") { _, _ ->
+        builder.setPositiveButton(R.string.ok) { _, _ ->
             startActivity(Intent(this, CollectDataActivity::class.java))
         }
 
         builder.show()
     }
 
+    private fun exitApp() {
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage(R.string.confirm_exit)
+            .setPositiveButton(R.string.positive_exit) { _, _ -> exitProcess(0) }
+            .setNegativeButton(R.string.negative_exit) { _, _ ->
+                Toast.makeText(this, "Exit cancelled", Toast.LENGTH_LONG).show()
+            }
+        builder.create()
+        builder.show()
+    }
 
+
+    override fun onBackPressed() {
+            if (currentDestination.id == R.id.navigation_home) {
+                exitApp()
+            }
+        }
 
 
 }

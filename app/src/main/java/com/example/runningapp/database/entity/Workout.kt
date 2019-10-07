@@ -11,7 +11,7 @@ data class Workout(
     @PrimaryKey
     val date: Date,
     val timeInMillis: Long,
-    val routeSections: List<RouteSection>,
+    val routeSections: List<RouteSection>, // Using DataConverter, we can use our custom types in queries
     var status: String,
     val caloriesBurnt: Int,
     val recommendedWaterIntake: Int
