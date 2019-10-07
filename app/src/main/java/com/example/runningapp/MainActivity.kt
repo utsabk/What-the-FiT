@@ -207,10 +207,12 @@ class MainActivity : AppCompatActivity(), SensorEventListener, StepListener {
 
 
     override fun onBackPressed() {
-            if (currentDestination.id == R.id.navigation_home) {
-                exitApp()
-            }
+        if (currentDestination.id == R.id.navigation_home) {
+            exitApp()
+        } else {
+            super.onBackPressed()
         }
+    }
 
 
 }
