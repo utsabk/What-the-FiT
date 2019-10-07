@@ -1,9 +1,12 @@
 package com.example.runningapp
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import com.example.runningapp.database.entity.Workout
 import com.example.runningapp.models.RouteSection
@@ -16,7 +19,8 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolylineOptions
-import kotlinx.android.synthetic.main.activity_training_details.*
+import kotlinx.android.synthetic.main.activity_workout_details.*
+import kotlinx.android.synthetic.main.app_bar_workoutdetails.*
 import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.math.floor
@@ -25,6 +29,8 @@ import kotlin.math.roundToInt
 class WorkoutDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var googleMap: GoogleMap
+    private var sharedPref: SharedPreferences? = null
+
     private lateinit var currentDate: Date
     private var measuredTimeInMillis = 0L
     private lateinit var routeSections: List<RouteSection>
@@ -35,7 +41,9 @@ class WorkoutDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_training_details)
+        setContentView(R.layout.activity_workout_details)
+        val toolbar: Toolbar = findViewById(R.id.workoutDetails_toolbar)
+        setSupportActionBar(toolbar)
 
         currentDate = Calendar.getInstance().time
         measuredTimeInMillis = intent.getLongExtra(RunningTrackerActivity.TIME_DATA_KEY, 0L)
@@ -50,32 +58,42 @@ class WorkoutDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
             status.isFocusable = false
         }
 
-       val weight = 60 //This is just for test purposes
-       recommendedWaterIntake = (12F / 3_720_000F * weight * measuredTimeInMillis).roundToInt()
+        sharedPref = getSharedPreferences(getString(R.string.preference_key), Context.MODE_PRIVATE)
+        val weight = sharedPref!!.getInt(getString(R.string.preference_weight), 65)
+        recommendedWaterIntake = (12F / 3_720_000F * weight * measuredTimeInMillis).roundToInt()
 
         summary_measured_time.text =
             if (measuredTimeInMillis >= 3600000)
                 String.format(
                     "%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(measuredTimeInMillis),
-                    TimeUnit.MILLISECONDS.toMinutes(measuredTimeInMillis) % TimeUnit.HOURS.toMinutes(1),
-                    TimeUnit.MILLISECONDS.toSeconds(measuredTimeInMillis) % TimeUnit.MINUTES.toSeconds(1)
+                    TimeUnit.MILLISECONDS.toMinutes(measuredTimeInMillis) % TimeUnit.HOURS.toMinutes(
+                        1
+                    ),
+                    TimeUnit.MILLISECONDS.toSeconds(measuredTimeInMillis) % TimeUnit.MINUTES.toSeconds(
+                        1
+                    )
                 )
             else
                 String.format(
                     "%02d:%02d",
-                    TimeUnit.MILLISECONDS.toMinutes(measuredTimeInMillis) % TimeUnit.HOURS.toMinutes(1),
-                    TimeUnit.MILLISECONDS.toSeconds(measuredTimeInMillis) % TimeUnit.MINUTES.toSeconds(1)
+                    TimeUnit.MILLISECONDS.toMinutes(measuredTimeInMillis) % TimeUnit.HOURS.toMinutes(
+                        1
+                    ),
+                    TimeUnit.MILLISECONDS.toSeconds(measuredTimeInMillis) % TimeUnit.MINUTES.toSeconds(
+                        1
+                    )
                 )
 
         val distance = routeSections.sumByDouble { section -> section.distance.toDouble() }
 
-        val distanceInKm = distance .roundToInt().toDouble() / 1000
+        val distanceInKm = distance.roundToInt().toDouble() / 1000
 
         val pace = measuredTimeInMillis / distance / 60
 
         summary_measured_distance.text = distanceInKm.toString().plus(" km")
         summary_measured_speed.text =
-            (((distance * 360000.0) / measuredTimeInMillis.toDouble()).roundToInt() / 100.0).toString().plus(" km/h")
+            (((distance * 360000.0) / measuredTimeInMillis.toDouble()).roundToInt() / 100.0).toString()
+                .plus(" km/h")
         summary_measured_pace.text = String.format(
             "%01d:%02d",
             floor(pace).toInt(),
@@ -87,6 +105,11 @@ class WorkoutDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
         summary_map.onCreate(savedInstanceState)
         summary_map.onResume()
         summary_map.getMapAsync(this)
+
+        menu_close.setOnClickListener {
+            //super.onBackPressed()
+            finish()
+        }
     }
 
 
@@ -125,7 +148,12 @@ class WorkoutDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
             )
         }
         if (routeSections.isNotEmpty()) {
-            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(routeSections.last().end.toLatLng(), 14f))
+            googleMap.animateCamera(
+                CameraUpdateFactory.newLatLngZoom(
+                    routeSections.last().end.toLatLng(),
+                    14f
+                )
+            )
         }
     }
 

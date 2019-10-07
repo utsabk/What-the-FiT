@@ -16,15 +16,16 @@ import kotlin.coroutines.CoroutineContext
 // Class extends AndroidViewModel and requires application as a parameter.
 class WorkoutViewModel(application: Application) : AndroidViewModel(application) {
 
+    //JOB is a cancellable thing,
+    // Where cancellation of a parent leads to immediate cancellation of all its children
     private var parentJob = Job()
     private val coroutineContext: CoroutineContext
         get() = parentJob + Dispatchers.Main
 
 
-    // The implementation of methods is completely hidden from the UI.
-    // We don't want insert to block the main thread, so we're launching a new
-    // coroutine. ViewModels have a coroutine scope based on their lifecycle called
-    // viewModelScope which we can use here.
+    // A CoroutineScope manages one or more related Coroutines
+    // Additionally, it also starts a new Coroutine within that scope.
+    // However, it doesn't run the Coroutines
     private val scope = CoroutineScope(coroutineContext)
 
 
@@ -40,16 +41,14 @@ class WorkoutViewModel(application: Application) : AndroidViewModel(application)
         workoutList = repository.allWorkouts
     }
 
+    // LAUNCH starts a new Coroutine and doesn't return the result to the caller.
+    // DISPATCHERS.IO is optimized to perform disk or network I/O outside of the main thread
     fun insert(workout: Workout) = scope.launch(Dispatchers.IO) {
         repository.insert(workout)
     }
 
-    fun delete(workout: Workout) = scope.launch(Dispatchers.IO){
+    fun delete(workout: Workout) = scope.launch(Dispatchers.IO) {
         repository.delete(workout)
-    }
-
-   suspend fun getLastWorkout(startDate: Long):List<Workout>{
-        return repository.getLastWorkout(startDate)
     }
 
     override fun onCleared() {

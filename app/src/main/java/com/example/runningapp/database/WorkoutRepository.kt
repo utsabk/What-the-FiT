@@ -17,7 +17,6 @@ class WorkoutRepository(private val workoutDao: WorkoutDao) {
     @WorkerThread
     // The suspend modifier tells the compiler that this must be called from a
     // coroutine or another suspend function.
-
     suspend fun insert(workout: Workout){
         workoutDao.insert(workout)
     }
@@ -27,8 +26,4 @@ class WorkoutRepository(private val workoutDao: WorkoutDao) {
         workoutDao.deleteWorkout(workout)
     }
 
-
-    suspend fun getLastWorkout(startDate:Long):List<Workout>{
-      return  workoutDao.getLastWorkout(startDate)
-    }
 }

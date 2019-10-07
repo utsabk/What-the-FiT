@@ -15,10 +15,6 @@ interface WorkoutDao{
     @Query("SELECT * FROM workout_data ORDER BY date DESC")
     fun getAllWorkoutDetails(): LiveData<List<Workout>>
 
-
-    @Query("Select * FROM workout_data WHERE date > :startDate")
-    fun getLastWorkout(startDate:Long): List<Workout>
-
     @Delete
     fun deleteWorkout(workout: Workout)
 }
