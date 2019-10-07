@@ -136,5 +136,23 @@
     <string name="positive_exit">Exit</string>
     <string name="negative_exit">Cancel</string>
 
+    <!-- Profile_achievements -->
+    <string name="best_distance">Best distance:</string>
+    <string name="best_calories">Most calories burnt:</string>
+    <string name="longest_time">Longest run:</string>
+    <string name="workouts">Workouts</string>
+    <string name="records">Records</string>
+    <string name="profile_kilometers_abbv">km</string>
+    <string name="profile_calories_abbv">kcal</string>
+    <string name="profile_time_abbv">h</string>
+    <string name="profile_picture">Profile picture</string>
+    <string name="profile_achievement">Personal achievement</string>
+    <string name="profile_distance">DISTANCE</string>
+    <string name="profile_time">TIME</string>
+    <string name="name">Name</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+
+
 </resources>
 
