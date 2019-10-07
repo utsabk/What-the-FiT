@@ -34,6 +34,12 @@
     <dimen name="history_row_spacing">8dp</dimen>
     <dimen name="history_row_icon_text_spacing">4dp</dimen>
 
+    <!--profile achievement -->
+    <dimen name="achievements_record_margin">8dp</dimen>
+    <dimen name="profile_edit_text_width">150dp</dimen>
+    <dimen name="profile_padding">16dp</dimen>
+    <dimen name="box_padding">12dp</dimen>
+
 
 
 </resources>
