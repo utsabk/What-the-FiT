@@ -51,6 +51,7 @@
         <activity android:name=".CollectDataActivity" />
 
         <service android:name=".services.RunningTrackerService" />
+        <service android:name=".services.StepCounterService" />
     </application>
 
 </manifest>

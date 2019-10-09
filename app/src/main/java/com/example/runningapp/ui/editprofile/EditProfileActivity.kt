@@ -1,16 +1,10 @@
 package com.example.runningapp.ui.editprofile
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Switch
-import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.widget.SwitchCompat
 import com.example.runningapp.R
 import com.example.runningapp.utils.PrefUtils
 import com.example.runningapp.utils.Theme
