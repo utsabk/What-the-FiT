@@ -13,6 +13,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.IdRes
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -31,9 +32,28 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlin.system.exitProcess
+import com.example.runningapp.ui.home.HomeFragment
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.util.SparseArray
+import androidx.annotation.NonNull
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.ViewModelProviders
+import com.example.runningapp.ui.history.HistoryFragment
+import com.example.runningapp.ui.home.HomeViewModel
+import com.example.runningapp.ui.profile.ProfileFragment
 
 
-class MainActivity : AppCompatActivity(), SensorEventListener, StepListener {
+class MainActivity  : AppCompatActivity(), SensorEventListener, StepListener {
+
+    lateinit var homeFragment: HomeFragment
+    lateinit var historyFragment: HistoryFragment
+    lateinit var profileFragment: ProfileFragment
     private lateinit var currentDestination:NavDestination
     private var simpleStepDetector: StepDetector? = null
     private var sensorManager: SensorManager? = null
@@ -47,6 +67,12 @@ class MainActivity : AppCompatActivity(), SensorEventListener, StepListener {
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+       /* AppCompatDelegate.setDefaultNightMode(
+            AppCompatDelegate.MODE_NIGHT_YES)*/
+
+        if (savedInstanceState != null) {
+            numSteps = savedInstanceState.getInt("Steps")
+        }
 
         /*val actionBar = supportActionBar
         actionBar!!.hide()*/
@@ -65,6 +91,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener, StepListener {
 
         val sharedPreference = PrefUtils(this)
         numSteps = sharedPreference.getValueInt("Steps")
+        distance = sharedPreference.getValueInt("DISTANCE_WITH_STEPS").toDouble()
 
 
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
@@ -79,7 +106,40 @@ class MainActivity : AppCompatActivity(), SensorEventListener, StepListener {
 
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
-       val navController = findNavController(R.id.nav_host_fragment)
+        //default fragment is home fragment
+
+
+        navView.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.navigation_home -> {
+                    homeFragment = HomeFragment()
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.main_container, homeFragment)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .commit()
+                }
+                R.id.navigation_history -> {
+                    historyFragment = HistoryFragment()
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.main_container, historyFragment)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .commit()
+                }
+                R.id.navigation_profile -> {
+                    profileFragment = ProfileFragment()
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.main_container, profileFragment)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .commit()
+                }
+            }
+            true
+        }
+
+        val navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         val navBarConfiguration = AppBarConfiguration(
@@ -129,22 +189,25 @@ class MainActivity : AppCompatActivity(), SensorEventListener, StepListener {
         numSteps++
         tvSteps.text = TEXT_NUM_STEPS.plus(numSteps)
         progressBar.progress = numSteps
-        distance = (numSteps * 0.0076)
+        distance = (numSteps * 0.00076)
+        println( distance)
+        val integerDistance = Math.round(distance * 100 )
+        print("this is:")
+        println(integerDistance)
+        progressBar_outer.progress = integerDistance.toInt()
         var display = Math.round(distance * 1000.0) / 1000.0
-        progressBar_outer.progress = distance.toInt()
         tvSteps_distance.text = DISTANCE_STEPS.plus(display)
     }
 
     override fun onResume() {
         super.onResume()
-        val sharedPreference = PrefUtils(this)
-        numSteps = sharedPreference.getValueInt("Steps")
     }
 
     override fun onPause() {
         super.onPause()
         val sharedPreference = PrefUtils(this)
         sharedPreference.saveInt("Steps", numSteps)
+        sharedPreference.saveInt("DISTANCE_WITH_STEPS", distance.toInt())
 
     }
 
@@ -214,5 +277,10 @@ class MainActivity : AppCompatActivity(), SensorEventListener, StepListener {
         }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt("Steps", numSteps)
+        outState.putDouble("Distance", distance)
+    }
 
 }

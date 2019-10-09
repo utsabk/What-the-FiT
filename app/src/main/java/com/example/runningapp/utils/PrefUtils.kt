@@ -2,9 +2,14 @@ package com.example.runningapp.utils
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.example.runningapp.R
 
 class PrefUtils (val context: Context) {
     private val PREFS_NAME = "RunningAppPref"
+    private val PREFERENCE_KEY_THEME = "Theme"
+    private val SETTING_PREFERENCE_FILE_KEY = "SettingPreference"
+
+
     val sharedPref: SharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
     fun saveString(KEY_NAME: String, text: String) {
@@ -67,5 +72,17 @@ class PrefUtils (val context: Context) {
 
         editor.remove(KEY_NAME)
         editor.commit()
+    }
+
+    fun getSavedTheme(): String {
+        return context.getSharedPreferences(SETTING_PREFERENCE_FILE_KEY, Context.MODE_PRIVATE)
+            .getString(PREFERENCE_KEY_THEME, context.getString(R.string.defaultTheme))!!
+    }
+
+    fun saveTheme(selectedTheme: String) {
+        context.getSharedPreferences(SETTING_PREFERENCE_FILE_KEY, Context.MODE_PRIVATE)
+            .edit()
+            .putString(PREFERENCE_KEY_THEME, selectedTheme)
+            .apply()
     }
 }

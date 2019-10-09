@@ -17,6 +17,11 @@ class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
 
+    override fun onStart() {
+        super.onStart()
+
+    }
+
     override fun onCreateView(
 
         inflater: LayoutInflater,
@@ -42,5 +47,4 @@ class HomeFragment : Fragment() {
         }
         return root
     }
-
 }

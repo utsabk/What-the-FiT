@@ -152,6 +152,17 @@
     <string name="name">Name</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
+    <string name="heart">Heart</string>
+    <string name="start">Start</string>
+
+    <string name="theme">Theme</string>
+    <string name="defaultTheme">Light</string>
+    <string name="newThemes">theme</string>
+    <string name="interfacesection">interfaceSection</string>
+    <string-array name="theme_settings">
+        <item>Dark</item>
+        <item>Light</item>
+    </string-array>
 
 
 </resources>
