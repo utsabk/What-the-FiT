@@ -32,33 +32,33 @@ class HomeFragment : Fragment() {
 
         private var calcSteps: Int = 0
 
-         var totalSteps: Int = 0
+        var totalSteps: Int = 0
 
 
         private var distance: Double = 0.0
 
-        var totalDistance:Double = 0.0
+        var totalDistance: Double = 0.0
 
     }
 
 
     private lateinit var homeViewModel: HomeViewModel
 
-    private val stepsBroadcastReceiver = object :BroadcastReceiver(){
+    private val stepsBroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-       val action = intent!!.action
+            val action = intent!!.action
 
-            when(action){
+            when (action) {
                 BROADCAST_ACTION_STEPS -> {
 
                     calcSteps = intent.getIntExtra(RunningTrackerService.STEPS_DATA_KEY, 0)
 
-                    Log.d("Hawa","calcStep:--$calcSteps")
+                    Log.d("Hawa", "calcStep:--$calcSteps")
 
 
                     val sharedPreference = PrefUtils(context!!)
-                     totalSteps = sharedPreference.getValueInt("Steps") + calcSteps
-                     totalDistance = sharedPreference.getValueInt("DISTANCE_WITH_STEPS").toDouble()
+                    totalSteps = sharedPreference.getValueInt("Steps") + calcSteps
+                    totalDistance = sharedPreference.getValueInt("DISTANCE_WITH_STEPS").toDouble()
 
                     tvSteps.text = TEXT_NUM_STEPS.plus(totalSteps)
                     progressBar.progress = totalSteps
@@ -114,14 +114,19 @@ class HomeFragment : Fragment() {
 
         Log.d("Tag", "Inside on resume")
 
-        if(!RunningTrackerService.pauseService){
+        if (!RunningTrackerService.pauseService) {
             val intentFilter = IntentFilter()
             intentFilter.addAction(BROADCAST_ACTION_STEPS)
             activity!!.registerReceiver(stepsBroadcastReceiver, intentFilter)
         }
 
         val sharedPreference = PrefUtils(context!!)
-        totalSteps = sharedPreference.getValueInt("Steps") + calcSteps
+        if (RunningTrackerService.stepCalcPaused) {
+            totalSteps = sharedPreference.getValueInt("Steps")
+
+        } else {
+            totalSteps = sharedPreference.getValueInt("Steps") + calcSteps
+        }
         totalDistance = sharedPreference.getValueInt("DISTANCE_WITH_STEPS").toDouble()
 
         tvSteps.text = TEXT_NUM_STEPS.plus(totalSteps)
@@ -138,15 +143,14 @@ class HomeFragment : Fragment() {
     }
 
 
-
-
     override fun onDestroyView() {
         super.onDestroyView()
-        Log.d("Hello","Inside Ondestroy fragment")
+        Log.d("Hello", "Inside Ondestroy fragment")
 
         try {
             activity!!.unregisterReceiver(stepsBroadcastReceiver)
-        }catch (e:IllegalArgumentException){}
+        } catch (e: IllegalArgumentException) {
+        }
     }
 
 }
