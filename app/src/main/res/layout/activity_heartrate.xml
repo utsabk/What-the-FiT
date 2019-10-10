@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+
+        <LinearLayout
+            android:id="@+id/put_finger_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:textAlignment="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/heartbeat" />
+
+            <TextView
+                android:id="@+id/place_finger_txt_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/place_finger_msg"
+                android:textAlignment="center"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:layout_marginTop="150dp"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:layout_gravity="center"
+                android:src="@drawable/put_finger" />
+
+
+        </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/after_finger_placed_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:layout_marginTop="100dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/heartbeat"
+            android:contentDescription="@string/heart_beat" />
+
+        <TextView
+            android:id="@+id/heartRate_measuring"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="@string/measuring_heartrate"
+            android:textSize="40sp" />
+
+        <TextView
+            android:id="@+id/heartrate_stay_quite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="@string/stay_quite_n_still"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/heartrate_measured"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:layout_marginTop="100dp"
+            android:textSize="50sp"/>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>
+
+

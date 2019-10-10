@@ -153,6 +153,17 @@
     <string name="male">Male</string>
     <string name="female">Female</string>
 
+    <!-- heartrate -->
+    <string name="heartRatemsg1">Sensor loaded</string>
+    <string name="heartRatemsg2">Sensor not loaded</string>
+    <string name="place_finger_msg">Place your finger on the sensor.</string>
+    <string name="stay_quite_n_still">Try to stay still and quiet</string>
+    <string name="measuring_heartrate">Measuring</string>
+    <string name="heart_beat">Heart Beat</string>
+    <string name="almost_there">Almost there</string>
+    <string name="complete">Complete</string>
+    <string name="not_enough_data">Not enough data collected</string>
+
 
 </resources>
 

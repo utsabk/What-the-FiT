@@ -12,8 +12,10 @@ import com.google.android.gms.maps.GoogleMap
 
 const val LOCATION_REQUEST_CODE = 101
 
-class AppPermissions(val context: Context?, val activity: Activity, val map: GoogleMap) {
-    fun checkPermission() {
+const val BODY_SENSOR_REQUEST_CODE = 100
+
+class AppPermissions(val context: Context?, val activity: Activity) {
+    fun checkLocationPermission(map: GoogleMap) {
 
         val permission =
             ContextCompat.checkSelfPermission(context!!, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -30,12 +32,12 @@ class AppPermissions(val context: Context?, val activity: Activity, val map: Goo
                     .setTitle("Permission required")
 
                 builder.setPositiveButton("OK") { _, _ ->
-                    makeRequest()
+                    makeLocationRequest()
                 }
                 val dialog = builder.create()
                 dialog.show()
             } else {
-                makeRequest()
+                makeLocationRequest()
             }
         } else {
             map.isMyLocationEnabled = true
@@ -44,13 +46,49 @@ class AppPermissions(val context: Context?, val activity: Activity, val map: Goo
 
     }
 
-    private fun makeRequest() {
+    fun checkBodySensorPermission() {
+        val permission =
+            ContextCompat.checkSelfPermission(context!!, Manifest.permission.BODY_SENSORS)
+        if (Build.VERSION.SDK_INT >= 23 && permission != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(
+                    activity,
+                    Manifest.permission.BODY_SENSORS
+                )
+            ) {
+                val builder = AlertDialog.Builder(context)
+                builder.setMessage("Permission to Body Sensor  is required for this app to measure Heart rate.")
+                    .setTitle("Permission required")
+
+                builder.setPositiveButton("OK") { _, _ ->
+                    makeBodySensorRequest()
+                }
+                val dialog = builder.create()
+                dialog.show()
+            } else {
+                makeBodySensorRequest()
+            }
+        }
+
+    }
+
+
+    private fun makeLocationRequest() {
         ActivityCompat.requestPermissions(
             activity,
             arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
             LOCATION_REQUEST_CODE
         )
     }
+
+    private fun makeBodySensorRequest() {
+        ActivityCompat.requestPermissions(
+            activity,
+            arrayOf(Manifest.permission.BODY_SENSORS),
+            BODY_SENSOR_REQUEST_CODE
+        )
+    }
+
 
 }
 

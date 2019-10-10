@@ -37,42 +37,47 @@ class ProfileFragment : Fragment() {
         val viewModel =
             WorkoutViewModelFactory(activity!!.application).create(WorkoutViewModel::class.java)
         viewModel.workoutList.observe(this, Observer { workoutList ->
-            workoutList?.let {
-                achievements_trainings_count.text = workoutList.size.toString()
-                achievements_distance_sum.text =
-                    Math.round(workoutList.sumByDouble { workout -> workout.routeSections.sumByDouble { section -> section.distance.toDouble() } } / 1000)
-                        .toString()
+            if(workoutList != null) {
+                workoutList?.let {
+                    achievements_trainings_count.text = workoutList.size.toString()
+                    achievements_distance_sum.text =
+                        Math.round(workoutList.sumByDouble { workout -> workout.routeSections.sumByDouble { section -> section.distance.toDouble() } } / 1000)
+                            .toString()
 
-                achievements_time_sum.text =
-                    (workoutList.sumBy { workout -> workout.timeInMillis.toInt() } / 36000000).toString()
-                achievements_calories_sum.text =
-                    workoutList.sumBy { workout -> workout.caloriesBurnt }.toString()
+                    achievements_time_sum.text =
+                        (workoutList.sumBy { workout -> workout.timeInMillis.toInt() } / 36000000).toString()
+                    achievements_calories_sum.text =
+                        workoutList.sumBy { workout -> workout.caloriesBurnt }.toString()
 
-                achievements_best_distance.text =
-                    (Math.round(workoutList.maxBy {
-                            workout -> workout.routeSections.sumByDouble{
-                            section -> section.distance.toDouble() } }!!.routeSections.sumByDouble{
-                            section -> section.distance.toDouble() } * 100.0) / 100).toString()
-                        .plus("m")
+                    achievements_best_distance.text =
+                        (Math.round(workoutList.maxBy { workout ->
+                            workout.routeSections.sumByDouble { section -> section.distance.toDouble() }
+                        }!!.routeSections.sumByDouble { section -> section.distance.toDouble() } * 100.0) / 100).toString()
+                            .plus("m")
+                }
+
+                achievements_best_calories.text =
+                    workoutList.maxBy { workout -> workout.caloriesBurnt }!!.caloriesBurnt.toString()
+                        .plus("kcal")
+
+                val longestTime =
+                    workoutList.maxBy { workout -> workout.timeInMillis }!!.timeInMillis
+                achievements_longest_time.text = if (longestTime >= 3600000)
+                    String.format(
+                        "%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(longestTime),
+                        TimeUnit.MILLISECONDS.toMinutes(longestTime) % TimeUnit.HOURS.toMinutes(1),
+                        TimeUnit.MILLISECONDS.toSeconds(longestTime) % TimeUnit.MINUTES.toSeconds(1)
+                    )
+                else
+                    String.format(
+                        "%02d:%02d",
+                        TimeUnit.MILLISECONDS.toMinutes(longestTime) % TimeUnit.HOURS.toMinutes(1),
+                        TimeUnit.MILLISECONDS.toSeconds(longestTime) % TimeUnit.MINUTES.toSeconds(1)
+                    )
+
+            }else {
+                Log.d("Tag", "Inside onActivityCreated")
             }
-
-            achievements_best_calories.text =
-                workoutList.maxBy { workout -> workout.caloriesBurnt }!!.caloriesBurnt.toString()
-                    .plus("kcal")
-
-            val longestTime = workoutList.maxBy { workout -> workout.timeInMillis }!!.timeInMillis
-            achievements_longest_time.text = if (longestTime >= 3600000)
-                String.format(
-                    "%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(longestTime),
-                    TimeUnit.MILLISECONDS.toMinutes(longestTime) % TimeUnit.HOURS.toMinutes(1),
-                    TimeUnit.MILLISECONDS.toSeconds(longestTime) % TimeUnit.MINUTES.toSeconds(1)
-                )
-            else
-                String.format(
-                    "%02d:%02d",
-                    TimeUnit.MILLISECONDS.toMinutes(longestTime) % TimeUnit.HOURS.toMinutes(1),
-                    TimeUnit.MILLISECONDS.toSeconds(longestTime) % TimeUnit.MINUTES.toSeconds(1)
-                )
         })
     }
 
