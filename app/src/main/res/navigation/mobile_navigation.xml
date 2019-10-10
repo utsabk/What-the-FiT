@@ -27,11 +27,11 @@
         android:label="@string/title_activity"
         tools:layout="@layout/activity_maps" />
 
-    <fragment
+    <activity
         android:id="@+id/navigation_heartrate"
-        android:name="com.example.runningapp.ui.heartrate.HeartRateFragment"
+        android:name="com.example.runningapp.ui.heartrate.HeartRateActivity"
         android:label="@string/menu_heartrate"
-        tools:layout="@layout/fragment_heartrate" />
+        tools:layout="@layout/activity_heartrate" />
 
 
     <fragment

@@ -8,6 +8,7 @@
          location permissions for the 'MyLocation' functionality.
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.BODY_SENSORS"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
     <application
@@ -49,6 +50,8 @@
         <activity android:name=".WorkoutDetailsActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".CollectDataActivity" />
+        <activity android:name=".ui.heartrate.HeartRateActivity" />
+        <activity android:name=".ui.heartrate.HeartRateDataActivity" />
 
         <service android:name=".services.RunningTrackerService" />
     </application>

@@ -48,7 +48,6 @@ class RunningTrackerActivity : AppCompatActivity(),
     private lateinit var mMap: GoogleMap
     private lateinit var spinner: Spinner
     private lateinit var trafficCheckbox: CheckBox
-    private lateinit var myLocationCheckbox: CheckBox
     private lateinit var buildingsCheckbox: CheckBox
     private lateinit var indoorCheckbox: CheckBox
 
@@ -167,7 +166,7 @@ class RunningTrackerActivity : AppCompatActivity(),
 
 
         go_fab_idle.setOnClickListener {
-            AppPermissions(this, this, mMap)
+            AppPermissions(this, this).checkLocationPermission(mMap)
 
             go_fab_idle.hide()
             pause_fab_running.show()
@@ -246,7 +245,7 @@ class RunningTrackerActivity : AppCompatActivity(),
 
         // Must deal with the location checkbox separately as must check that
         // location permission have been granted before enabling the 'My Location' layer.
-        AppPermissions(this, this, mMap).checkPermission()
+        AppPermissions(this, this).checkLocationPermission(mMap)
 
 
         // check the state of all checkboxes and update the map accordingly
@@ -331,8 +330,7 @@ class RunningTrackerActivity : AppCompatActivity(),
 
                     Log.i(TAG, "Permission has been denied by user")
                     mMap.isMyLocationEnabled = false
-                    myLocationCheckbox.isChecked = false
-
+                    finish()
                 } else {
                     Log.i(TAG, "Permission has been granted by user")
                     mMap.isMyLocationEnabled = true
