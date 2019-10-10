@@ -3,7 +3,6 @@ package com.example.runningapp
 import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.media.RingtoneManager
 import android.os.Build
 import androidx.annotation.RequiresApi
 

@@ -10,6 +10,7 @@ import android.hardware.SensorManager
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import com.example.runningapp.AppPermissions
 import com.example.runningapp.BODY_SENSOR_REQUEST_CODE
@@ -55,6 +56,8 @@ class HeartRateActivity : AppCompatActivity(), SensorEventListener {
         Log.d("Tag", "onAccuracyChanged p1:--${p1}")
 
         fingerState = State.Measuring
+
+        heartrate_measured.text = getString(R.string.almost_there)
         if (dataCollectStarted) {
             heartrate_measured.text = getString(R.string.complete)
             if(heartRateValues.size > 10){
@@ -68,7 +71,6 @@ class HeartRateActivity : AppCompatActivity(), SensorEventListener {
                 heartrate_measured.text = getString(R.string.not_enough_data)
             }
         }
-        heartrate_measured.text = getString(R.string.almost_there)
         dataCollectStarted = true
     }
 
@@ -93,6 +95,9 @@ class HeartRateActivity : AppCompatActivity(), SensorEventListener {
                 State.FingerPlaced -> {
                     put_finger_layout.visibility = View.GONE
                     after_finger_placed_layout.visibility = View.VISIBLE
+                    heartrate_anm_heart.startAnimation(AnimationUtils.loadAnimation(this, R.anim.heart_beat))
+
+
 
                     fingerState = State.FingerRemoved
                 }
@@ -100,6 +105,8 @@ class HeartRateActivity : AppCompatActivity(), SensorEventListener {
                 State.Measuring -> {
                     put_finger_layout.visibility = View.GONE
                     after_finger_placed_layout.visibility = View.VISIBLE
+                    heartrate_anm_heart.startAnimation(AnimationUtils.loadAnimation(this, R.anim.heart_beat))
+
 
                     if (heartRateValue > 0.0 && heartRateValue < 120.0) {
                         heartRateValues.add(heartRateValue)

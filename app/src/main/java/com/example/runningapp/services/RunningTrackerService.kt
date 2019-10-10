@@ -8,6 +8,10 @@ import android.app.PendingIntent
 import android.app.Service
 import android.content.Context
 import android.content.Intent
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.location.Location
 import android.os.IBinder
 import android.os.Parcelable
@@ -17,15 +21,18 @@ import androidx.core.app.NotificationCompat
 import com.example.runningapp.App.Companion.CHANNEL_ID
 import com.example.runningapp.MainActivity
 import com.example.runningapp.R
+import com.example.runningapp.listener.StepListener
 import com.example.runningapp.models.RouteSection
 import com.example.runningapp.ui.activity.RunningTrackerActivity
+import com.example.runningapp.ui.home.HomeFragment
+import com.example.runningapp.utils.StepDetector
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.math.roundToInt
 
-class RunningTrackerService : Service() {
+class RunningTrackerService : Service(), SensorEventListener, StepListener {
 
     private lateinit var context: Context
 
@@ -42,9 +49,16 @@ class RunningTrackerService : Service() {
     private var currentTimeInMillis = 0L
 
 
+    private var simpleStepDetector: StepDetector? = null
+    private var sensorManager: SensorManager? = null
+    private var numSteps: Int = 0
+
+
     companion object {
         private var timer = Timer()
         var pauseService = false
+
+        var stepCalcPaused = false
 
         // We use it on Notification start, and to cancel it.
         const val NOTIFICATION_ID = 1
@@ -54,6 +68,9 @@ class RunningTrackerService : Service() {
             "com.example.runningapp.trackactivityservice.routesectionsdatakey"
         const val RESOLUTION_DATA_KEY =
             "com.example.runningapp.trackactivityservice.resolutiondatakey"
+
+        const val STEPS_DATA_KEY = "com.example.runningapp.services.stepcounterservice.stepsdatakey"
+
     }
 
 
@@ -61,11 +78,23 @@ class RunningTrackerService : Service() {
 
         return null
     }
+
     // Called by the system when the service is first created.
     override fun onCreate() {
         super.onCreate()
         context = this
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
+
+        sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        simpleStepDetector = StepDetector()
+        simpleStepDetector!!.registerListener(this)
+        sensorManager!!.registerListener(
+            this,
+            sensorManager!!.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+            SensorManager.SENSOR_DELAY_FASTEST
+        )
+
 
         // update lastLocation with the new location
         //  And update the map with the new location coordinates
@@ -271,4 +300,35 @@ class RunningTrackerService : Service() {
 
 
     }
+
+
+    override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
+        Log.d("Tag", "onAccuracyChanged called")
+
+    }
+
+    override fun onSensorChanged(event: SensorEvent?) {
+        if (event!!.sensor.type == Sensor.TYPE_ACCELEROMETER) {
+            simpleStepDetector!!.updateAccelerometer(
+                event.timestamp,
+                event.values[0],
+                event.values[1],
+                event.values[2]
+            )
+        }
+    }
+
+    override fun step(timeNs: Long) {
+        if (!stepCalcPaused) {
+
+            numSteps++
+
+            val intent = Intent()
+            intent.action = HomeFragment.BROADCAST_ACTION_STEPS
+            intent.putExtra(STEPS_DATA_KEY, numSteps)
+            sendBroadcast(intent)
+        }
+    }
+
+
 }

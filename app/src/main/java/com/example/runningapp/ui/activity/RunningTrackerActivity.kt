@@ -22,6 +22,8 @@ import com.example.runningapp.R
 import com.example.runningapp.WorkoutDetailsActivity
 import com.example.runningapp.models.RouteSection
 import com.example.runningapp.services.RunningTrackerService
+import com.example.runningapp.ui.home.HomeFragment
+import com.example.runningapp.utils.PrefUtils
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener
@@ -172,10 +174,13 @@ class RunningTrackerActivity : AppCompatActivity(),
             pause_fab_running.show()
             timerState = TimerState.Running
 
+            RunningTrackerService.stepCalcPaused = false
+
             val intentFilter = IntentFilter()
             intentFilter.addAction(BROADCAST_ACTION_LOCATION)
             intentFilter.addAction(BROADCAST_ACTION_TIME)
             intentFilter.addAction(BROADCAST_ACTION_STOP_TIMER)
+            intentFilter.addAction(HomeFragment.BROADCAST_ACTION_STEPS)
             this.registerReceiver(runningTrackerBroadcastReceiver, intentFilter)
 
             // Start the service from here
@@ -405,6 +410,7 @@ class RunningTrackerActivity : AppCompatActivity(),
 
         // Stop the service from running
         this.stopService(Intent(this, RunningTrackerService::class.java))
+        RunningTrackerService.stepCalcPaused = true
         this.unregisterReceiver(runningTrackerBroadcastReceiver)
         @Suppress("UNCHECKED_CAST")
         val localRouteSections = routeSections as ArrayList<Parcelable>
@@ -420,6 +426,12 @@ class RunningTrackerActivity : AppCompatActivity(),
         fabs_paused.visibility = View.GONE
         pause_fab_running.hide()
         go_fab_idle.show()
+
+        //Save steps to SharePreferences
+
+        val sharedPreference = PrefUtils(this)
+        sharedPreference.saveInt("Steps", HomeFragment.totalSteps)
+        sharedPreference.saveInt("DISTANCE_WITH_STEPS", HomeFragment.totalDistance.toInt())
 
 
         if (localRouteSections.size < 1) return
@@ -440,7 +452,23 @@ class RunningTrackerActivity : AppCompatActivity(),
 
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("Tag","Inside running tracker ondestroy")
+
+        try {
+            this.unregisterReceiver(runningTrackerBroadcastReceiver)
+        } catch (e: IllegalArgumentException) {
+        }
+        with(sharedPref!!.edit()) {
+            putInt(getString(R.string.timer_state), timerState.ordinal)
+            commit()
+        }
+    }
+
+
     enum class TimerState { Idle, Running, Paused }
+
 
 
 }

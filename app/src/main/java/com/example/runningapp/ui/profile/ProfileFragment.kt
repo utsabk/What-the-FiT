@@ -33,11 +33,10 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Log.d("Tag", "Inside onViewCreated")
 
-
         val viewModel =
             WorkoutViewModelFactory(activity!!.application).create(WorkoutViewModel::class.java)
         viewModel.workoutList.observe(this, Observer { workoutList ->
-            if(workoutList != null) {
+            try {
                 workoutList?.let {
                     achievements_trainings_count.text = workoutList.size.toString()
                     achievements_distance_sum.text =
@@ -74,22 +73,17 @@ class ProfileFragment : Fragment() {
                         TimeUnit.MILLISECONDS.toMinutes(longestTime) % TimeUnit.HOURS.toMinutes(1),
                         TimeUnit.MILLISECONDS.toSeconds(longestTime) % TimeUnit.MINUTES.toSeconds(1)
                     )
-
-            }else {
-                Log.d("Tag", "Inside onActivityCreated")
+            } catch (ex: KotlinNullPointerException) {
+                Log.d("Tag", "Null point exception")
             }
         })
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        Log.d("Tag", "Inside onActivityCreated")
 
-    }
 
-    override fun onStart() {
-        super.onStart()
-        Log.d("Tag", "Inside onStart")
+    override fun onResume() {
+        super.onResume()
+        Log.d("Tag", "Inside onResume")
         sharedPref =
             activity?.getSharedPreferences(getString(R.string.preference_key), Context.MODE_PRIVATE)
 
@@ -110,59 +104,7 @@ class ProfileFragment : Fragment() {
             }
             else -> return
         }
-    }
-
-
-    override fun onResume() {
-        super.onResume()
-        Log.d("Tag", "Inside onResume")
 
     }
 
-    override fun onPause() {
-        super.onPause()
-        Log.d("Tag", "Inside onPause")
-
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d("Tag", "Inside onStop")
-
-
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        Log.d("Tag", "Inside onDestroyView")
-
-    }
-
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d("Tag", "Inside onDestroy")
-
-    }
-
-
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//
-//        sharedPref = activity?.getSharedPreferences(getString(R.string.preference_key), Context.MODE_PRIVATE)
-//
-//        val firstname = sharedPref!!.getString(getString(R.string.preference_first_name),"John")
-//        val lastname = sharedPref!!.getString(getString(R.string.preference_last_name),"Doe")
-//        profile_user_name.text = firstname.plus(" ").plus(lastname)
-//      //  profile_user_height.text = (sharedPref!!.getInt(getString(R.string.preference_height),70)).toString()
-//        profile_user_weight.text = (sharedPref!!.getInt(getString(R.string.preference_weight),165)).toString()
-//
-//        when(sharedPref!!.getInt(getString(R.string.preference_gender),0)){
-//            0 -> {
-//                profile_gender.text = getString(R.string.male)
-//            }
-//            1 ->{profile_gender.text = getString(R.string.female)}
-//            else -> return
-//        }
-//    }
 }

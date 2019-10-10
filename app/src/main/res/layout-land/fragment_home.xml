@@ -126,12 +126,13 @@
                     android:id="@+id/achievement_icon"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:layout_marginEnd="152dp"
+                    android:layout_marginEnd="320dp"
                     android:layout_toStartOf="@+id/burned_icon"
                     android:contentDescription="@string/achievement"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/burned_icon"
                     app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
                     app:srcCompat="@drawable/baseline_stars_black_18dp" />
             </androidx.constraintlayout.widget.ConstraintLayout>
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -263,7 +264,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginStart="25dp"
-                android:layout_marginTop="203dp"
+                android:layout_marginTop="180dp"
                 android:layout_marginEnd="25dp"
                 android:clipToPadding="false"
                 android:gravity="center"
@@ -274,18 +275,18 @@
                     android:layout_width="311dp"
                     android:layout_height="145dp"
                     android:layout_margin="10dp"
-                    android:background="@color/colorAccent"
                     android:clickable="true"
                     android:focusable="true"
+                    android:background="@color/colorAccent"
                     android:foreground="?android:attr/selectableItemBackground">
 
                     <LinearLayout
 
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@color/colorLight"
                         android:gravity="center"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:background="@color/colorLight">
 
                         <ImageView
                             android:layout_width="64dp"

@@ -1,7 +1,10 @@
 package com.example.runningapp.database
 
 import android.content.Context
-import androidx.room.*
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.example.runningapp.DataConverter
 import com.example.runningapp.database.dao.WorkoutDao
 import com.example.runningapp.database.entity.Workout
