@@ -133,6 +133,10 @@ class MainActivity  : AppCompatActivity() {
                 exitApp()
                 true
             }
+            R.id.settings_app -> {
+                appSettings()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -157,6 +161,12 @@ class MainActivity  : AppCompatActivity() {
             }
         builder.create()
         builder.show()
+    }
+
+    private fun appSettings() {
+//        startActivity(Intent(this@MainActivity, EditProfileActivity::class.java))
+        startActivity(Intent(this@MainActivity, Settings::class.java))
+
     }
 
 

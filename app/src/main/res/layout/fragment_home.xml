@@ -210,6 +210,7 @@
                     android:id="@+id/activity_card"
                     android:layout_width="311dp"
                     android:layout_height="145dp"
+                    app:cardCornerRadius="20dp"
                     android:layout_margin="10dp"
                     android:clickable="true"
                     android:focusable="true"
@@ -275,6 +276,7 @@
                     android:layout_height="145dp"
                     android:layout_margin="10dp"
                     android:background="@color/colorAccent"
+                    app:cardCornerRadius="20dp"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground">

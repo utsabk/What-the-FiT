@@ -2,6 +2,7 @@ package com.example.runningapp.ui.profile
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,13 +13,21 @@ import androidx.lifecycle.Observer
 import com.example.runningapp.R
 import com.example.runningapp.ui.history.WorkoutViewModel
 import com.example.runningapp.ui.history.WorkoutViewModelFactory
+import com.example.runningapp.ui.home.HomeFragment.Companion.totalDistance
+import com.github.mikephil.charting.charts.BarChart
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.BarDataSet
+import com.github.mikephil.charting.data.BarEntry
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.profile_achievements.*
+import java.util.ArrayList
 import java.util.concurrent.TimeUnit
 
 class ProfileFragment : Fragment() {
 
     private var sharedPref: SharedPreferences? = null
+    private var stackedChart: BarChart? = null
+    internal var colorClassArray = intArrayOf(Color.rgb(0,128,255), Color.rgb(255,171,64), Color.rgb(0,150,136))
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,7 +35,15 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         Log.d("Tag", "Inside onCreateView")
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+        val root = inflater.inflate(R.layout.fragment_profile, container, false)
+
+        stackedChart = root.findViewById(R.id.stacked_bar)
+        val barDataSet = BarDataSet(dataValues1(), "Bar Set")
+        barDataSet.setColors(*colorClassArray)
+        val barData = BarData(barDataSet)
+
+        stackedChart!!.setData(barData)
+        return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -77,6 +94,16 @@ class ProfileFragment : Fragment() {
                 Log.d("Tag", "Null point exception")
             }
         })
+    }
+
+    private fun dataValues1(): ArrayList<BarEntry> {
+        val dataVals = ArrayList<BarEntry>()
+        dataVals.add(BarEntry(1f, floatArrayOf(8f, 3f, 2f)))
+        dataVals.add(BarEntry(3f, floatArrayOf(0f, 1f, 5.3f)))
+        dataVals.add(BarEntry(2f, floatArrayOf(2f, 3f, 8f)))
+        dataVals.add(BarEntry(4f, floatArrayOf(2f, 6f, 8f)))
+        dataVals.add(BarEntry(5f, floatArrayOf(1f, 5f, 5f)))
+        return dataVals
     }
 
 

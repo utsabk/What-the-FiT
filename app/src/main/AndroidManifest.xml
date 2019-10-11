@@ -10,6 +10,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.BODY_SENSORS"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-feature android:name="android.hardware.camera.ar" />
 
     <application
         android:name=".App"
@@ -52,6 +54,8 @@
         <activity android:name=".CollectDataActivity" />
         <activity android:name=".ui.heartrate.HeartRateActivity" />
         <activity android:name=".ui.heartrate.HeartRateDataActivity" />
+        <activity android:name=".Settings" />
+        <meta-data android:name="com.google.ar.core" android:value="required" />
 
         <service android:name=".services.RunningTrackerService" />
 
