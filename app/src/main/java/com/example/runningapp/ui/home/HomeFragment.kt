@@ -68,8 +68,8 @@ class HomeFragment : Fragment() {
                     print("this is:")
                     println(integerDistance)
                     progressBar_outer.progress = integerDistance.toInt()
-                    var display = Math.round(distance * 1000.0) / 1000.0
-                    tvSteps_distance.text = DISTANCE_STEPS.plus(display)
+                   // var display = Math.round(distance * 1000.0) / 1000.0
+                   // tvSteps_distance.text = DISTANCE_STEPS.plus(display)
                 }
             }
 
@@ -137,8 +137,8 @@ class HomeFragment : Fragment() {
         print("this is:")
         println(integerDistance)
         progressBar_outer.progress = integerDistance.toInt()
-        var display = Math.round(distance * 1000.0) / 1000.0
-        tvSteps_distance.text = DISTANCE_STEPS.plus(display)
+       // var display = Math.round(distance * 1000.0) / 1000.0
+        // tvSteps_distance.text = DISTANCE_STEPS.plus(display)
 
     }
 
