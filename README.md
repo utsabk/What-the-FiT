@@ -1,28 +1,33 @@
-## Oveview
 
+# What-the-FiT
+
+## Overview
 Activity tracker and Heart rate monitor app that uses the phones internal sensor accelerometer and heart rate sensor.
 
-## Installation and requirements
 
-- Android studio minimum sdk version 24
+## App features
+* Track your activity.
+* Calculate the distance travelled during activity.
+* Calculate calories burned during activity.
+* Measure heart rate.
+* Show list of workouts history.
 
-### Clone
 
-- Clone this repo to your local machine and install the app
+## Build 
+Clone this repository and import into **Android Studio**
+```bash
+git clone gitlab.com/khan.alishup/what-the-fit.git
+```
+## API Reference
+* Minimum SDK: 20
+* Target SDK: 29
 
-https://gitlab.com/khan.alishup/what-the-fit.git
-
-## Screenshots
-
-## Team
-
-> Or Contributors/People
- Ishup Khan 
- Utsab Kharel
-
----
-
----
+## Screenshot 
 
 ## License
 
+
+## Contributors
+### Github users
+* [ishupk](https://gitlab.com/khan.alishup)
+* [utsabk](https://gitlab.com/utsabk)
