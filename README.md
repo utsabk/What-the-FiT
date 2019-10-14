@@ -1,4 +1,3 @@
-
 # What-the-FiT
 
 ## Overview
@@ -23,6 +22,16 @@ git clone gitlab.com/khan.alishup/what-the-fit.git
 * Target SDK: 29
 
 ## Screenshot 
+<div align="center">
+   <img src="app/src/main/res/raw/home.jpeg" width="25%" alt="Home page"/>
+   <img src="app/src/main/res/raw/mapRA.jpg" width="25%" alt="Start activity" />
+   <img src="app/src/main/res/raw/profile.jpg" width="25%" alt="Profile page" />
+   <img src="app/src/main/res/raw/changeProfile.jpg" width="25%" alt="Change profile" />
+   <img src="app/src/main/res/raw/helpAR.jpg" width="25%" alt="Help page" />
+   <img src="app/src/main/res/raw/changeTheme.jpg" width="25%" alt="Change theme" />
+   <img src="app/src/main/res/raw/measuringHR.jpg" width="25%" alt="Measure Heart Rate" />
+   <img src="app/src/main/res/raw/graphHR.jpg" width="25%" alt="Graph view og heart rate" />
+  </div>
 
 ## License
 
