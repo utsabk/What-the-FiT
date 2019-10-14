@@ -2,6 +2,7 @@ package com.example.runningapp.ui.profile
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -14,10 +15,12 @@ import com.example.runningapp.R
 import com.example.runningapp.ui.history.WorkoutViewModel
 import com.example.runningapp.ui.history.WorkoutViewModelFactory
 import com.example.runningapp.ui.home.HomeFragment.Companion.totalDistance
+import com.example.runningapp.utils.FileUtil
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
+import kotlinx.android.synthetic.main.activity_data_collect.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.profile_achievements.*
 import java.util.ArrayList
@@ -49,6 +52,10 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d("Tag", "Inside onViewCreated")
+
+        val bitmap = BitmapFactory.decodeFile(FileUtil.getOrCreateProfileImageFile(context!!, "image/jpeg").path)
+        profile_user_image.setImageBitmap(bitmap?: BitmapFactory.decodeResource(resources, R.drawable.ic_add_a_photo_themed_24dp))
+
 
         val viewModel =
             WorkoutViewModelFactory(activity!!.application).create(WorkoutViewModel::class.java)

@@ -9,16 +9,23 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@drawable/summary_background">
 
-        <ImageView
+        android:orientation="horizontal">
 
-            android:id="@+id/imageView_account_profile"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:src="@drawable/ic_person_black_24dp"
-            android:contentDescription="@string/profile_picture"/>
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/profile_image_card"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            app:cardCornerRadius="60dp">
+
+            <ImageView
+                android:id="@+id/profile_user_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/ic_account_circle_black_24dp"
+                android:contentDescription="@string/profile_description" />
+
+        </com.google.android.material.card.MaterialCardView>
 
         <LinearLayout
             android:layout_width="0dp"

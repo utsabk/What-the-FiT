@@ -145,7 +145,7 @@
     <string name="profile_kilometers_abbv">km</string>
     <string name="profile_calories_abbv">kcal</string>
     <string name="profile_time_abbv">h</string>
-    <string name="profile_picture">Profile picture</string>
+    <string name="profile_description">Profile picture</string>
     <string name="profile_achievement">Personal achievement</string>
     <string name="profile_distance">DISTANCE</string>
     <string name="profile_time">TIME</string>
