@@ -155,14 +155,6 @@
     <string name="heart">Heart</string>
     <string name="start">Start</string>
 
-    <string name="theme">Theme</string>
-    <string name="defaultTheme">Light</string>
-    <string name="newThemes">theme</string>
-    <string name="interfacesection">interfaceSection</string>
-    <string-array name="theme_settings">
-        <item>Dark</item>
-        <item>Light</item>
-    </string-array>
 
     <!-- heartrate -->
     <string name="heartRatemsg1">Sensor loaded</string>
@@ -174,8 +166,22 @@
     <string name="almost_there">Almost there</string>
     <string name="complete">Complete</string>
     <string name="not_enough_data">Not enough data</string>
-    <string name="themes_">Themes</string>
-    <string name="change_themes_">Change Themes</string>
+
+    <!--Setting-->
+
+    <string name="theme">Theme</string>
+    <string name="defaultTheme">Light</string>
+    <string name="newThemes">theme</string>
+    <string name="interfacesection">interfaceSection</string>
+    <string-array name="theme_settings">
+        <item>Dark</item>
+        <item>Light</item>
+        <item>Battery Mode</item>
+        <item>Follow System</item>
+    </string-array>
+
+    <string name="interface_">Interface</string>
+    <string name="select_themes_">Theme</string>
     <string name="__Settings">Settings</string>
 
 

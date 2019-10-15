@@ -13,5 +13,5 @@ object Theme {
 
     fun getThemes()= themes.keys
 
-    fun setThemes(theme: String) = AppCompatDelegate.setDefaultNightMode(themes.get(theme)!!)
+    fun setTheme(theme: String) = AppCompatDelegate.setDefaultNightMode(themes[theme] ?: error(""))
 }

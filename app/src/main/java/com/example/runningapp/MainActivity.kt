@@ -164,7 +164,6 @@ class MainActivity  : AppCompatActivity() {
     }
 
     private fun appSettings() {
-//        startActivity(Intent(this@MainActivity, EditProfileActivity::class.java))
         startActivity(Intent(this@MainActivity, Settings::class.java))
 
     }
