@@ -29,10 +29,6 @@ import kotlin.system.exitProcess
 
 
 class MainActivity  : AppCompatActivity() {
-
-    lateinit var homeFragment: HomeFragment
-    lateinit var historyFragment: HistoryFragment
-    lateinit var profileFragment: ProfileFragment
     private lateinit var currentDestination:NavDestination
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,12 +36,6 @@ class MainActivity  : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-       /* AppCompatDelegate.setDefaultNightMode(
-            AppCompatDelegate.MODE_NIGHT_YES)*/
-
-
-        /*val actionBar = supportActionBar
-        actionBar!!.hide()*/
 
         val userDataSharedPref =
             getSharedPreferences(getString(R.string.preference_key), Context.MODE_PRIVATE)

@@ -3,7 +3,6 @@ package com.example.runningapp
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.provider.MediaStore
@@ -25,6 +24,12 @@ class CollectDataActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_data_collect)
+        setSupportActionBar(collect_data_toolbar)
+        supportActionBar?.let{
+            it.title = "Edit Profile"
+            it.setDisplayHomeAsUpEnabled(true)
+            it.setDisplayShowHomeEnabled(true)
+        }
 
         val sharedPreferences =
             getSharedPreferences(getString(R.string.preference_key), Context.MODE_PRIVATE)
@@ -106,5 +111,10 @@ class CollectDataActivity : AppCompatActivity() {
                 REQUEST_IMAGE_CAPTURE -> {profile_user_image.setImageBitmap(BitmapFactory.decodeFile(FileUtil.getOrCreateProfileImageFile(this, "image/jpeg").path))}
             }
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }

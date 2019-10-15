@@ -174,8 +174,8 @@
     <string name="newThemes">theme</string>
     <string name="interfacesection">interfaceSection</string>
     <string-array name="theme_settings">
-        <item>Dark</item>
         <item>Light</item>
+        <item>Dark</item>
         <item>Battery Mode</item>
         <item>Follow System</item>
     </string-array>

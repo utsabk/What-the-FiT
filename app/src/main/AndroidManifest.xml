@@ -50,7 +50,8 @@
         <activity android:name=".ui.help.HelpActivity" />
         <activity android:name=".WorkoutDetailsActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".CollectDataActivity" />
+        <activity android:name=".CollectDataActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".ui.heartrate.HeartRateActivity" />
         <activity android:name=".ui.heartrate.HeartRateDataActivity" />
         <activity

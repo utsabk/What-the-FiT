@@ -8,7 +8,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/box_description_margin_start"
         android:text="@string/summary"
-        android:textColor="@color/common_google_signin_btn_text_dark_focused"/>
+        android:textColor="@color/colorPrimaryDark"
+        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,12 +31,12 @@
                 android:id="@+id/achievements_trainings_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/common_google_signin_btn_text_dark_focused"/>
+                />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/workouts"
-                android:textColor="@color/common_google_signin_btn_text_light_focused"/>
+                />
         </LinearLayout>
         <LinearLayout
             android:layout_width="0dp"
@@ -47,17 +48,17 @@
                 android:id="@+id/achievements_distance_sum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/common_google_signin_btn_text_dark_focused"/>
+                />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/profile_kilometers_abbv"
-                android:textColor="@color/common_google_signin_btn_text_dark_focused"/>
+                />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/profile_distance"
-                android:textColor="@color/common_google_signin_btn_text_light_focused"/>
+                />
         </LinearLayout>
         <LinearLayout
             android:layout_width="0dp"
@@ -69,17 +70,17 @@
                 android:id="@+id/achievements_calories_sum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/common_google_signin_btn_text_dark_focused"/>
+                />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/profile_calories_abbv"
-                android:textColor="@color/common_google_signin_btn_text_dark_focused"/>
+                />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/calories"
-                android:textColor="@color/common_google_signin_btn_text_light_focused"/>
+                />
         </LinearLayout>
         <LinearLayout
             android:layout_width="0dp"
@@ -91,24 +92,24 @@
                 android:id="@+id/achievements_time_sum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/common_google_signin_btn_text_dark_focused"/>
+                />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/profile_time_abbv"
-                android:textColor="@color/common_google_signin_btn_text_dark_focused"/>
+                />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/profile_time"
-                android:textColor="@color/common_google_signin_btn_text_light_focused"/>
+                />
         </LinearLayout>
     </LinearLayout>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/box_description_margin_start"
-        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textColor="@color/colorPrimaryDark"
         android:text="@string/records"/>
     <LinearLayout
         android:layout_width="match_parent"
@@ -130,7 +131,6 @@
                 android:id="@+id/achievements_best_distance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/text_color_black"
                 android:layout_marginStart="@dimen/achievements_record_margin"/>
         </LinearLayout>
         <LinearLayout
@@ -145,7 +145,6 @@
                 android:id="@+id/achievements_best_calories"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/text_color_black"
                 android:layout_marginStart="@dimen/achievements_record_margin"/>
         </LinearLayout>
         <LinearLayout
@@ -160,7 +159,6 @@
                 android:id="@+id/achievements_longest_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/text_color_black"
                 android:layout_marginStart="@dimen/achievements_record_margin"/>
         </LinearLayout>
     </LinearLayout>
