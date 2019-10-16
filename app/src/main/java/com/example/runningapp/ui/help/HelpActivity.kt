@@ -1,12 +1,9 @@
 package com.example.runningapp.ui.help
 
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.MotionEvent
-import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -31,7 +28,7 @@ class HelpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_help)
         fragment = supportFragmentManager.findFragmentById(R.id.sceneform_fragment) as ArFragment
-        button_star.setOnClickListener{ onClear() }
+        button_clear.setOnClickListener{ onClear() }
 
 
         if ((Build.VERSION.SDK_INT >= 24 &&
@@ -73,7 +70,7 @@ class HelpActivity : AppCompatActivity() {
     }
 
     private fun onClear() {
-        val children = ArrayList(fragment.getArSceneView().getScene().getChildren())
+        val children = ArrayList(fragment.arSceneView.scene.children)
         for (node in children) {
             if (node is AnchorNode) {
                 if (node.anchor != null) {

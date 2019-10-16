@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Settings"
-    android:background="?attr/backgroundColor">
+    tools:context=".SettingsActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         app:layout_constraintTop_toTopOf="parent"
@@ -25,7 +24,6 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/interface_cardview"
-        app:cardBackgroundColor="?attr/cardBackgroundColor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -80,7 +78,6 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/profile_cardview"
-        app:cardBackgroundColor="?attr/cardBackgroundColor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"

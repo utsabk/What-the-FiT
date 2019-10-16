@@ -20,9 +20,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.runningapp.services.RunningTrackerService
 import com.example.runningapp.ui.activity.RunningTrackerActivity.Companion.REQUEST_CHECK_SETTINGS
 import com.example.runningapp.ui.help.HelpActivity
-import com.example.runningapp.ui.history.HistoryFragment
-import com.example.runningapp.ui.home.HomeFragment
-import com.example.runningapp.ui.profile.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlin.system.exitProcess
@@ -154,7 +151,7 @@ class MainActivity  : AppCompatActivity() {
     }
 
     private fun appSettings() {
-        startActivity(Intent(this@MainActivity, Settings::class.java))
+        startActivity(Intent(this@MainActivity, SettingsActivity::class.java))
 
     }
 

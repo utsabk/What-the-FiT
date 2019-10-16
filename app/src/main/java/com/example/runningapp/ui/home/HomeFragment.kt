@@ -40,10 +40,6 @@ class HomeFragment : Fragment() {
         var totalDistance: Double = 0.0
 
     }
-
-
-    private lateinit var homeViewModel: HomeViewModel
-
     private val stepsBroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             val action = intent!!.action
@@ -84,8 +80,6 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        homeViewModel =
-            ViewModelProviders.of(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         // Two different ways to navigate from one fragment to another
         root.activity_card.setOnClickListener(

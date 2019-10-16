@@ -55,7 +55,7 @@
         <activity android:name=".ui.heartrate.HeartRateActivity" />
         <activity android:name=".ui.heartrate.HeartRateDataActivity" />
         <activity
-            android:name=".Settings"
+            android:name=".SettingsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
 

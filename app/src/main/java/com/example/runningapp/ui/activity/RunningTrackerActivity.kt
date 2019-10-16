@@ -95,7 +95,6 @@ class RunningTrackerActivity : AppCompatActivity(),
                 BROADCAST_ACTION_TIME -> {
                     measuredTimeInMillis =
                         intent.getLongExtra(RunningTrackerService.MILLIS_DATA_KEY, 0L)
-                    Log.d("Tag", "TimeINMills:---$measuredTimeInMillis")
                     if (measuredTimeInMillis == 0L) Log.w(
                         "broadcastreceiver",
                         "service returned time 0"
@@ -110,9 +109,6 @@ class RunningTrackerActivity : AppCompatActivity(),
                         fillMap()
                         distanceInMeters =
                             routeSections.sumByDouble { section -> section.distance.toDouble() }
-
-                        Log.d("Tag", "DistanceInmeters:---$distanceInMeters")
-
                         tracked_distance.text = "%.2f".format(distanceInMeters / 1000)
 
                         val speed = speedCalc(distanceInMeters, measuredTimeInMillis.toDouble())
@@ -454,7 +450,6 @@ class RunningTrackerActivity : AppCompatActivity(),
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.d("Tag","Inside running tracker ondestroy")
 
         try {
             this.unregisterReceiver(runningTrackerBroadcastReceiver)

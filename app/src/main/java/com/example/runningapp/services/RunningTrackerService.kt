@@ -33,7 +33,6 @@ import java.util.concurrent.TimeUnit
 import kotlin.math.roundToInt
 
 class RunningTrackerService : Service(), SensorEventListener, StepListener {
-
     private lateinit var context: Context
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -52,6 +51,8 @@ class RunningTrackerService : Service(), SensorEventListener, StepListener {
     private var simpleStepDetector: StepDetector? = null
     private var sensorManager: SensorManager? = null
     private var numSteps: Int = 0
+
+    private var lastSteps: Int = 0
 
 
     companion object {
@@ -103,14 +104,12 @@ class RunningTrackerService : Service(), SensorEventListener, StepListener {
             // Called when device location information is available
             override fun onLocationResult(locationResult: LocationResult?) {
                 super.onLocationResult(locationResult)
-
                 if (locationResult == null) return
                 if (pauseService) {
                     lastLocation = null
                     return
                 }
-
-                if (lastLocation != null) {
+                if (lastLocation != null && numSteps > lastSteps) {
                     locations.add(
                         RouteSection(
                             com.example.runningapp.models.Location(
@@ -123,11 +122,16 @@ class RunningTrackerService : Service(), SensorEventListener, StepListener {
                             )
                         )
                     )
+                    lastLocation = locationResult.lastLocation
                 }
+                // lastSteps is only updated to numSteps once they're added them to list(locations)
+                // For that reason lastSteps and numSteps aren't same
+                lastSteps = numSteps
 
-                Log.d("Tag", "$locations")
-
-                lastLocation = locationResult.lastLocation
+                // When no steps are taken, last location is current location
+                if (numSteps == 0){
+                    lastLocation = locationResult.lastLocation
+                }
 
                 val intent = Intent()
                 intent.action = RunningTrackerActivity.BROADCAST_ACTION_LOCATION
@@ -328,7 +332,9 @@ class RunningTrackerService : Service(), SensorEventListener, StepListener {
             intent.putExtra(STEPS_DATA_KEY, numSteps)
             sendBroadcast(intent)
         }
+
+
+
+
     }
-
-
 }

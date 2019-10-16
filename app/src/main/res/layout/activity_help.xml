@@ -11,13 +11,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <Button
-        android:id="@+id/button_star"
-        android:layout_width="69dp"
-        android:layout_height="67dp"
-        android:layout_marginStart="172dp"
-        android:layout_marginEnd="151dp"
-        android:layout_marginBottom="24dp"
-        android:background="@android:drawable/ic_menu_delete" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/button_clear"
+        android:backgroundTint="@color/colorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@android:drawable/ic_menu_close_clear_cancel"/>
 
 </FrameLayout>

@@ -10,7 +10,7 @@ import com.example.runningapp.utils.Theme
 import kotlinx.android.synthetic.main.activity_settings.*
 
 
-class Settings : AppCompatActivity(), AdapterView.OnItemSelectedListener {
+class SettingsActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     private lateinit var sharedPreferenceUtil: PrefUtils
 
@@ -20,7 +20,7 @@ class Settings : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         setContentView(R.layout.activity_settings)
         setSupportActionBar(settings_toolbar)
         supportActionBar?.let {
-            it.title = "Settings"
+            it.title = "SettingsActivity"
             it.setDisplayHomeAsUpEnabled(true)
             it.setDisplayShowHomeEnabled(true)
         }
