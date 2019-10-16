@@ -12,8 +12,8 @@
         android:useLevel="false" >
         <gradient
             android:centerY="0.5"
-            android:endColor="@color/inner_pro_bar_end_color"
-            android:startColor="@color/inner_pro_bar_start_color"
+            android:endColor="@color/pro_bar_heartrate_end_color"
+            android:startColor="@color/pro_bar_heartrate_start_color"
             android:type="sweep"
             android:useLevel="false" />
     </shape>

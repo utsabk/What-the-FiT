@@ -2,8 +2,8 @@ package com.example.runningapp.ui.profile
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,24 +14,16 @@ import androidx.lifecycle.Observer
 import com.example.runningapp.R
 import com.example.runningapp.ui.history.WorkoutViewModel
 import com.example.runningapp.ui.history.WorkoutViewModelFactory
-import com.example.runningapp.ui.home.HomeFragment.Companion.totalDistance
 import com.example.runningapp.utils.FileUtil
-import com.github.mikephil.charting.charts.BarChart
-import com.github.mikephil.charting.data.BarData
-import com.github.mikephil.charting.data.BarDataSet
-import com.github.mikephil.charting.data.BarEntry
-import kotlinx.android.synthetic.main.activity_data_collect.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.profile_achievements.*
-import java.util.ArrayList
+import kotlinx.android.synthetic.main.profile_resolution.*
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 class ProfileFragment : Fragment() {
 
     private var sharedPref: SharedPreferences? = null
-    private var stackedChart: BarChart? = null
-    internal var colorClassArray = intArrayOf(Color.rgb(0,128,255), Color.rgb(255,171,64), Color.rgb(0,150,136))
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,23 +31,14 @@ class ProfileFragment : Fragment() {
     ): View? {
         Log.d("Tag", "Inside onCreateView")
         val root = inflater.inflate(R.layout.fragment_profile, container, false)
-
-        stackedChart = root.findViewById(R.id.stacked_bar)
-        val barDataSet = BarDataSet(dataValues1(), "Bar Set")
-        barDataSet.setColors(*colorClassArray)
-        val barData = BarData(barDataSet)
-
-        stackedChart!!.setData(barData)
         return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d("Tag", "Inside onViewCreated")
-
-        val bitmap = BitmapFactory.decodeFile(FileUtil.getOrCreateProfileImageFile(context!!, "image/jpeg").path)
-        profile_user_image.setImageBitmap(bitmap?: BitmapFactory.decodeResource(resources, R.drawable.ic_add_a_photo_themed_24dp))
-
+        sharedPref =
+            activity?.getSharedPreferences(getString(R.string.preference_key), Context.MODE_PRIVATE)
 
         val viewModel =
             WorkoutViewModelFactory(activity!!.application).create(WorkoutViewModel::class.java)
@@ -101,25 +84,45 @@ class ProfileFragment : Fragment() {
                 Log.d("Tag", "Null point exception")
             }
         })
+
+
+
+
+
+
+        resolution_save_button.setOnClickListener {
+            val distance = resolution_distance.text.toString().toFloat()
+            val distanceUnit = resolution_distance_unit.selectedItemId
+            val timeUnit = resolution_time_unit.selectedItemId
+
+
+
+            with(sharedPref!!.edit()) {
+                putFloat(
+                    getString(R.string.preference_distance),
+                    if (distanceUnit == 0L) distance * 1000 else distance
+                )
+                putLong(getString(R.string.preference_time_unit), timeUnit)
+                putInt(getString(R.string.preference_day_of_month),Calendar.DAY_OF_MONTH)
+                apply()
+
+            }
+
+            resolution_distance.text.clear()
+
+        }
+
     }
-
-    private fun dataValues1(): ArrayList<BarEntry> {
-        val dataVals = ArrayList<BarEntry>()
-        dataVals.add(BarEntry(1f, floatArrayOf(8f, 3f, 2f)))
-        dataVals.add(BarEntry(3f, floatArrayOf(0f, 1f, 5.3f)))
-        dataVals.add(BarEntry(2f, floatArrayOf(2f, 3f, 8f)))
-        dataVals.add(BarEntry(4f, floatArrayOf(2f, 6f, 8f)))
-        dataVals.add(BarEntry(5f, floatArrayOf(1f, 5f, 5f)))
-        return dataVals
-    }
-
-
 
     override fun onResume() {
         super.onResume()
         Log.d("Tag", "Inside onResume")
         sharedPref =
             activity?.getSharedPreferences(getString(R.string.preference_key), Context.MODE_PRIVATE)
+
+        val bitmap = BitmapFactory.decodeFile(FileUtil.getOrCreateProfileImageFile(context!!, "image/jpeg").path)
+        profile_user_image.setImageBitmap(Bitmap.createScaledBitmap(bitmap,120, 120, false)?:
+        BitmapFactory.decodeResource(resources, R.drawable.ic_add_a_photo_themed_24dp))
 
         val firstname = sharedPref!!.getString(getString(R.string.preference_first_name), "John")
         val lastname = sharedPref!!.getString(getString(R.string.preference_last_name), "Doe")

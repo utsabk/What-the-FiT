@@ -51,6 +51,10 @@ class WorkoutViewModel(application: Application) : AndroidViewModel(application)
         repository.delete(workout)
     }
 
+    suspend fun getLastTrainings(startDate: Long): List<Workout>{
+        return repository.getLastTrainings(startDate)
+    }
+
     override fun onCleared() {
         super.onCleared()
         parentJob.cancel()

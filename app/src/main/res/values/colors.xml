@@ -9,7 +9,6 @@
     <color name="colorLines">#2979ff</color>
     <color name="colorExtra">#009688</color>
     <color name="colorText">#cfd8dc</color>
-    <color name="colorLight">#D0D4D6</color>
 
     <color name="white">#D0FFFFFF</color>
 
@@ -19,5 +18,18 @@
     <color name="route_color">#0080ff</color>
     <color name="text_color_black">#111</color>
     <color name="text_color_black_light">#222</color>
+
+    <!-- Progress bar -->
+    <color name="inner_pro_bar_start_color">#157BA0</color>
+    <color name="inner_pro_bar_end_color">#FCAC14</color>
+    <color name="outer_pro_bar_start_color">#cfd8dc</color>
+    <color name="outer_pro_bar_end_color">#2979ff</color>
+
+    <color name="pro_bar_heartrate_start_color">#6D4A4A</color>
+    <color name="pro_bar_heartrate_end_color">#F82502</color>
+
+
+
+
 
 </resources>

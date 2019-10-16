@@ -27,16 +27,16 @@
 
                 <ImageButton
                     android:id="@+id/menu_help"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_gravity="start"
                     android:background="@drawable/ic_help_black_24dp"
                     android:contentDescription="@string/menu_help" />
 
                 <ImageButton
                     android:id="@+id/menu_setting"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_gravity="end"
                     android:layout_marginStart="10dp"
                     android:background="@drawable/ic_settings_black_24dp"

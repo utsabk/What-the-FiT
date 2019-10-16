@@ -5,321 +5,182 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:padding="@dimen/home_page_padding">
 
-        <RelativeLayout
-            android:id="@+id/relativeLayout2"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/progressBarContainer"
             android:layout_width="match_parent"
-            android:layout_height="209dp"
-            android:layout_alignParentTop="true"
+            android:layout_height="250dp"
+            android:padding="@dimen/home_page_padding"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/cardViewContainer">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="274dp"
-                android:layout_height="174dp"
+            <ProgressBar
+                android:id="@+id/progressBar_outer"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:indeterminate="false"
+                android:progress="0"
+                android:progressDrawable="@drawable/custom_progressbar_bigger"
+                android:secondaryProgress="0"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ProgressBar
+                android:id="@+id/progressBar_inner"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="65dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="72dp"
-                android:layout_marginBottom="27dp">
-
-                <ProgressBar
-                    android:id="@+id/progressBar_outer"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="215dp"
-                    android:layout_height="158dp"
-                    android:indeterminate="false"
-                    android:max="50"
-                    android:progress="0"
-                    android:progressDrawable="@drawable/custom_progressbar_bigger"
-                    android:secondaryProgress="0"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvSteps"
-                    android:layout_width="118dp"
-                    android:layout_height="58dp"
-                    android:layout_alignStart="@+id/progressBar"
-                    android:layout_alignTop="@+id/progressBar"
-                    android:layout_alignEnd="@+id/progressBar"
-                    android:layout_alignBottom="@+id/progressBar"
-                    android:gravity="center"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ProgressBar
-                    android:id="@+id/progressBar"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="161dp"
-                    android:layout_height="149dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
-                    android:indeterminate="false"
-                    android:max="1000"
-                    android:progress="0"
-                    android:progressDrawable="@drawable/custom_progressbar_drawable"
-                    android:secondaryProgress="0"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </RelativeLayout>
-
-
-        <RelativeLayout
-            android:id="@+id/relativeLayout3"
-            android:layout_width="match_parent"
-            android:layout_height="71dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/relativeLayout2">
-
-<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_alignParentEnd="true"-->
-<!--                android:layout_marginEnd="0dp">-->
-
-<!--                <ImageView-->
-<!--                    android:id="@+id/running_icon"-->
-<!--                    android:layout_width="25dp"-->
-<!--                    android:layout_height="25dp"-->
-<!--                    android:layout_alignParentEnd="true"-->
-<!--                    android:contentDescription="@string/runningicon"-->
-<!--                    android:backgroundTint="@color/colorAccent"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:layout_constraintEnd_toStartOf="@+id/achievement_icon"-->
-<!--                    app:layout_constraintHorizontal_bias="0.107"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toTopOf="parent"-->
-<!--                    app:layout_constraintVertical_bias="0.0"-->
-<!--                    app:srcCompat="@drawable/ic_directions_run_black_24dp" />-->
-
-<!--                <ImageView-->
-<!--                    android:id="@+id/burned_icon"-->
-<!--                    android:layout_width="25dp"-->
-<!--                    android:layout_height="25dp"-->
-<!--                    android:layout_alignParentEnd="true"-->
-<!--                    android:layout_marginEnd="16dp"-->
-<!--                    android:contentDescription="@string/calorieburn"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintTop_toTopOf="parent"-->
-<!--                    app:srcCompat="@drawable/baseline_whatshot_black_18dp" />-->
-
-<!--                <ImageView-->
-<!--                    android:id="@+id/achievement_icon"-->
-<!--                    android:layout_width="25dp"-->
-<!--                    android:layout_height="25dp"-->
-<!--                    android:layout_marginEnd="152dp"-->
-<!--                    android:layout_toStartOf="@+id/burned_icon"-->
-<!--                    android:contentDescription="@string/achievement"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:layout_constraintEnd_toStartOf="@+id/burned_icon"-->
-<!--                    app:layout_constraintTop_toTopOf="parent"-->
-<!--                    app:srcCompat="@drawable/baseline_stars_black_18dp" />-->
-<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
-<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="45dp"-->
-<!--                android:layout_alignParentTop="true"-->
-<!--                android:layout_alignParentBottom="true"-->
-<!--                android:layout_marginTop="28dp"-->
-<!--                android:layout_marginBottom="-2dp">-->
-
-<!--                <androidx.appcompat.widget.AppCompatTextView-->
-<!--                    android:id="@+id/tvSteps_distance"-->
-<!--                    android:layout_width="66dp"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_alignParentStart="true"-->
-<!--                    android:layout_alignParentEnd="true"-->
-<!--                    android:layout_alignParentBottom="true"-->
-<!--                    android:gravity="center"-->
-<!--                    android:textSize="12sp"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--                <androidx.appcompat.widget.AppCompatTextView-->
-<!--                    android:id="@+id/tvSteps_achieve"-->
-<!--                    android:layout_width="66dp"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_alignParentStart="true"-->
-<!--                    android:layout_alignParentEnd="true"-->
-<!--                    android:layout_alignParentBottom="true"-->
-<!--                    android:gravity="center"-->
-<!--                    android:textSize="12sp"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:layout_constraintEnd_toStartOf="@+id/tvSteps_burn"-->
-<!--                    app:layout_constraintStart_toEndOf="@+id/tvSteps_distance"-->
-<!--                    app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--                <androidx.appcompat.widget.AppCompatTextView-->
-<!--                    android:id="@+id/tvSteps_burn"-->
-<!--                    android:layout_width="66dp"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_alignParentStart="true"-->
-<!--                    android:layout_alignParentEnd="true"-->
-<!--                    android:layout_alignParentBottom="true"-->
-<!--                    android:gravity="center"-->
-<!--                    android:textSize="12sp"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="407dp"
-            android:layout_height="444dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/relativeLayout3">
+                android:indeterminate="false"
+                android:progress="0"
+                android:progressDrawable="@drawable/custom_progressbar_drawable"
+                android:secondaryProgress="0"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
-                android:layout_width="360dp"
-                android:layout_height="135dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="25dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_alignStart="@+id/progressBar_inner"
+                android:layout_alignTop="@+id/progressBar_inner"
+                android:layout_alignEnd="@+id/progressBar_inner"
+                android:layout_alignBottom="@+id/progressBar_inner"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" >
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/distance_travelled_so_far"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="20sp"
+                    android:textColor="@color/inner_pro_bar_end_color"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/days_gone_so_far"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="20sp"
+                    android:textColor="@color/outer_pro_bar_end_color"/>
+
+            </LinearLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+            <LinearLayout
+                android:id="@+id/cardViewContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:clipToPadding="false"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:padding="@dimen/home_page_padding"
+                app:layout_constraintTop_toBottomOf="@id/progressBarContainer"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="?attr/actionBarSize">
 
-                <androidx.cardview.widget.CardView
+                <com.google.android.material.card.MaterialCardView
                     android:id="@+id/activity_card"
-                    android:layout_width="311dp"
-                    android:layout_height="145dp"
-                    app:cardCornerRadius="20dp"
-                    android:layout_margin="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="30dp"
                     android:clickable="true"
                     android:focusable="true"
-                    android:foreground="?android:attr/selectableItemBackground">
+                    android:layout_margin="@dimen/home_page_padding">
 
                     <LinearLayout
-
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:orientation="vertical"
-                        android:background="@color/colorLight">
+                        android:padding="@dimen/home_page_item_padding">
 
                         <ImageView
                             android:layout_width="64dp"
                             android:layout_height="64dp"
-                            android:background="@drawable/ic_directions_run_black_24dp"
-                            android:contentDescription="calorieburn"
-                            android:padding="10dp"
+                            android:background="@drawable/ic_directions_run_green_24dp"
+                            android:contentDescription="@string/content_description_start_a_activity"
+                            android:padding="@dimen/home_page_item_padding"
                             android:tint="@color/design_default_color_primary_dark" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="Start a workout"
+                            android:padding="@dimen/home_page_item_padding"
+                            android:text="@string/home_fragment_start_a_activity"
+                            android:textSize="20sp"
                             android:textStyle="bold" />
 
                         <View
-                            android:layout_width="match_parent"
+                            android:layout_width="300dp"
                             android:layout_height="1dp"
-                            android:layout_margin="10dp"
+                            android:padding="@dimen/home_page_item_padding"
                             android:background="@color/colorAccent" />
-
-                        <!--<TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:padding="5dp"
-                            android:text="Heart rate check garne"
-                            android:textColor="@android:color/darker_gray" />-->
-
                     </LinearLayout>
-                </androidx.cardview.widget.CardView>
-            </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
 
-            <LinearLayout
-                android:layout_width="360dp"
-                android:layout_height="135dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="203dp"
-                android:layout_marginEnd="25dp"
-                android:clipToPadding="false"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <androidx.cardview.widget.CardView
+                <com.google.android.material.card.MaterialCardView
                     android:id="@+id/heart_rate_card"
-                    android:layout_width="311dp"
-                    android:layout_height="145dp"
-                    android:layout_margin="10dp"
-                    android:background="@color/colorAccent"
-                    app:cardCornerRadius="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="30dp"
                     android:clickable="true"
                     android:focusable="true"
-                    android:foreground="?android:attr/selectableItemBackground">
+                    android:layout_margin="@dimen/home_page_padding">
 
                     <LinearLayout
-
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@color/colorLight"
                         android:gravity="center"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:padding="@dimen/home_page_item_padding">
 
                         <ImageView
                             android:layout_width="64dp"
                             android:layout_height="64dp"
-                            android:background="@drawable/heartbeat"
-                            android:padding="10dp"
-                            android:tint="@color/design_default_color_primary_dark" />
+                            android:background="@drawable/health"
+                            android:padding="@dimen/home_page_item_padding"
+                            android:tint="@color/design_default_color_primary_dark"
+                            android:contentDescription="@string/content_description_measure_heart_rate"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="Check Heart Rate"
+                            android:padding="@dimen/home_page_item_padding"
+                            android:text="@string/home_fragment_check_heart_rate"
+                            android:textSize="20sp"
                             android:textStyle="bold" />
 
                         <View
-                            android:layout_width="match_parent"
+                            android:layout_width="300dp"
                             android:layout_height="1dp"
-                            android:layout_margin="10dp"
+                            android:padding="@dimen/home_page_item_padding"
                             android:background="@color/colorAccent" />
-
-                        <!--<TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:padding="5dp"
-                            android:text="Heart rate check garne"
-                            android:textColor="@android:color/darker_gray" />-->
-
                     </LinearLayout>
-                </androidx.cardview.widget.CardView>
+                </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
-        </RelativeLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

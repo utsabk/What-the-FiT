@@ -13,6 +13,9 @@ import androidx.core.content.FileProvider
 import com.example.runningapp.utils.FileUtil
 import kotlinx.android.synthetic.main.activity_data_collect.*
 import kotlinx.android.synthetic.main.fragment_profile.*
+import android.graphics.Bitmap
+
+
 
 class CollectDataActivity : AppCompatActivity() {
 
@@ -35,7 +38,8 @@ class CollectDataActivity : AppCompatActivity() {
             getSharedPreferences(getString(R.string.preference_key), Context.MODE_PRIVATE)
 
         val bitmap = BitmapFactory.decodeFile(FileUtil.getOrCreateProfileImageFile(this, "image/jpeg").path)
-         edit_profile_user_image.setImageBitmap(bitmap?: BitmapFactory.decodeResource(resources, R.drawable.ic_add_a_photo_themed_24dp))
+        edit_profile_user_image.setImageBitmap(Bitmap.createScaledBitmap(bitmap,120, 120, false)?:
+        BitmapFactory.decodeResource(resources, R.drawable.ic_add_a_photo_themed_24dp))
 
         edit_profile_user_image.setOnClickListener { showImagePicker() }
 
@@ -105,7 +109,7 @@ class CollectDataActivity : AppCompatActivity() {
                         val file = FileUtil.getOrCreateProfileImageFile(this, contentResolver.getType(it) ?: "image/jpeg")
                         FileUtil.copyStreamToFile(contentResolver.openInputStream(it)!!, file)
                         val bitmap = BitmapFactory.decodeStream(contentResolver.openInputStream(it))
-                        edit_profile_user_image.setImageBitmap(bitmap)
+                        edit_profile_user_image.setImageBitmap(Bitmap.createScaledBitmap(bitmap,120, 120, false))
                     }
                 }
                 REQUEST_IMAGE_CAPTURE -> {profile_user_image.setImageBitmap(BitmapFactory.decodeFile(FileUtil.getOrCreateProfileImageFile(this, "image/jpeg").path))}
@@ -117,4 +121,5 @@ class CollectDataActivity : AppCompatActivity() {
         onBackPressed()
         return true
     }
+
 }

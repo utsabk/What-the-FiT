@@ -180,7 +180,7 @@ class RunningTrackerService : Service(), SensorEventListener, StepListener {
         val notification = NotificationCompat.Builder(context, CHANNEL_ID)
             .setContentTitle(getString(R.string.notification_title))
             .setContentText(currentTimeInMillis.toString())
-            .setSmallIcon(R.drawable.ic_play_arrow)
+            .setSmallIcon(R.drawable.ic_directions_run_green_24dp)
             .setContentIntent(pendingIntent)
             .build()
 
@@ -291,7 +291,7 @@ class RunningTrackerService : Service(), SensorEventListener, StepListener {
                 val notification = NotificationCompat.Builder(context, CHANNEL_ID)
                     .setContentTitle(getString(R.string.notification_title))
                     .setContentText(timeFormatted.plus(" ").plus(distance.toString()))
-                    .setSmallIcon(R.drawable.ic_play_arrow)
+                    .setSmallIcon(R.drawable.ic_directions_run_green_24dp)
                     .setContentIntent(pendingIntent)
                     .build()
 

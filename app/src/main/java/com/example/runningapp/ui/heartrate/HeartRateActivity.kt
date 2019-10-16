@@ -22,27 +22,27 @@ var heartRateValues = ArrayList<Float>()
 
 class HeartRateActivity : AppCompatActivity(), SensorEventListener {
 
-    private var fingerPlaced = false
     private var fingerState = State.FingerRemoved
-
-    private var dataCollectStarted = false
-
     private lateinit var sensorManager: SensorManager
 
     private var senHeartRate: Sensor? = null
 
     private var heartRateValue: Float = 0.0F
 
+    var heartrateMeasuredPercentage = 0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(com.example.runningapp.R.layout.activity_heartrate)
+        setContentView(R.layout.activity_heartrate)
 
         AppPermissions(this, this).checkBodySensorPermission()
 
         Log.d("Tagbca", "Inside onCreate")
 
         after_finger_placed_layout.visibility = View.GONE
+        heartrate_progress_bar_ConstraintLayout.visibility = View.GONE
+
 
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
@@ -54,24 +54,9 @@ class HeartRateActivity : AppCompatActivity(), SensorEventListener {
         Log.d("Tag", "onAccuracyChanged:--${sensor?.name}")
 
         Log.d("Tag", "onAccuracyChanged p1:--${p1}")
-
         fingerState = State.Measuring
 
-        heartrate_measured.text = getString(R.string.almost_there)
-        if (dataCollectStarted) {
-            heartrate_measured.text = getString(R.string.complete)
-            if(heartRateValues.size > 10){
-            val intent = Intent(
-                this, HeartRateDataActivity
-
-                ::class.java
-            )
-            startActivity(intent)
-            }else {
-                heartrate_measured.text = getString(R.string.not_enough_data)
-            }
-        }
-        dataCollectStarted = true
+        heartrateMeasuredPercentage = 0
     }
 
     override fun onSensorChanged(p0: SensorEvent?) {
@@ -95,7 +80,12 @@ class HeartRateActivity : AppCompatActivity(), SensorEventListener {
                 State.FingerPlaced -> {
                     put_finger_layout.visibility = View.GONE
                     after_finger_placed_layout.visibility = View.VISIBLE
-                    heartrate_anm_heart.startAnimation(AnimationUtils.loadAnimation(this, R.anim.heart_beat))
+                    heartrate_anm_heart.startAnimation(
+                        AnimationUtils.loadAnimation(
+                            this,
+                            R.anim.heart_beat
+                        )
+                    )
 
 
 
@@ -105,34 +95,47 @@ class HeartRateActivity : AppCompatActivity(), SensorEventListener {
                 State.Measuring -> {
                     put_finger_layout.visibility = View.GONE
                     after_finger_placed_layout.visibility = View.VISIBLE
-                    heartrate_anm_heart.startAnimation(AnimationUtils.loadAnimation(this, R.anim.heart_beat))
+                    heartrate_anm_heart.startAnimation(
+                        AnimationUtils.loadAnimation(
+                            this,
+                            R.anim.heart_beat
+                        )
+                    )
+
+                    // Change progress bar state
+                    heartrateMeasuredPercentage += 10
+
+                    if (heartrateMeasuredPercentage > 100) {
+                        val intent = Intent(
+                            this, HeartRateDataActivity
+
+                            ::class.java
+                        )
+                        startActivity(intent)
+                    } else {
+                        heartrate_progress_bar.progress = heartrateMeasuredPercentage
+                        measured_percentage_text.text =
+                            heartrateMeasuredPercentage.toString().plus("%")
+                    }
+
+
+                    // Condition to show progressive bar
+                    if(heartrateMeasuredPercentage <= 10){
+                        heartrate_progress_bar_ConstraintLayout.visibility = View.GONE
+                    }else heartrate_progress_bar_ConstraintLayout.visibility = View.VISIBLE
+
+
+
 
 
                     if (heartRateValue > 0.0 && heartRateValue < 120.0) {
                         heartRateValues.add(heartRateValue)
-                        HearRate.list.appendData(
-                            DataPoint(
-                                heartRateValues.size.toDouble(),
-                                heartRateValue.toDouble()
-                            ), false, 1000
-                        )
+                        HearRate.list.appendData(DataPoint(heartRateValues.size.toDouble(), heartRateValue.toDouble()), false, 100)
                     }
-
-
-                    // fingerPlaced = false
                 }
             }
 
-            Log.d("Tagbca", "Values:----${p0?.values?.get(0) ?: -1f}")
-
-            // heartrate_measured.text = (p0?.values?.get(0) ?: -1f).toString()
-
         }
-//
-//        if(fingerPlaced){
-//        }else {}
-
-
     }
 
     override fun onResume() {

@@ -46,14 +46,21 @@
         </activity>
 
         <activity
-            android:name=".ui.activity.RunningTrackerActivity" />
-        <activity android:name=".ui.help.HelpActivity" />
+            android:name=".ui.activity.RunningTrackerActivity"
+            android:label="Workout"
+            />
+        <activity android:name=".ui.help.HelpActivity"
+            android:label="Help"/>
         <activity android:name=".WorkoutDetailsActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="@string/workout_details_manifest_label"
+            />
         <activity android:name=".CollectDataActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".ui.heartrate.HeartRateActivity" />
-        <activity android:name=".ui.heartrate.HeartRateDataActivity" />
+        <activity android:name=".ui.heartrate.HeartRateActivity"
+            android:label="@string/heartRate_manifest_label"/>
+        <activity android:name=".ui.heartrate.HeartRateDataActivity"
+            android:label="@string/heartRate_manifest_label"/>
         <activity
             android:name=".SettingsActivity"
             android:theme="@style/AppTheme.NoActionBar" />

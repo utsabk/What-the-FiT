@@ -127,7 +127,7 @@
 
     <!-- Recyclerview-->
     <string name="icon_content_description">Icon</string>
-    <string name="confirm_delete">Are you sure you want to delete this training?</string>
+    <string name="confirm_delete">Are you sure you want to delete this workout?</string>
     <string name="positive_delete">Delete</string>
     <string name="negative_delete">Cancel</string>
 
@@ -183,6 +183,47 @@
     <string name="interface_">Interface</string>
     <string name="select_themes_">Theme</string>
     <string name="__Settings">Settings</string>
+
+
+
+<!-- Profile_Resolution -->
+
+    <string name="profile_set_a_goal">Set a goal</string>
+
+    <string name="resolution_first_part">I decide that I will run</string>
+    <string name="resolution_second_part">every</string>
+    <string name="profile_cancel">Cancel</string>
+    <string name="profile_save">Save</string>
+
+
+    <string name="preference_distance" translatable="false" templateMergeStrategy="preserve">
+        com.example.runningapp.profile.distance
+    </string>
+    <string name="preference_time_unit" translatable="false" templateMergeStrategy="preserve">
+        com.example.runningapp.profile.timeunit
+    </string>
+
+    <string name="preference_day_of_month" translatable="false" templateMergeStrategy="preserve">
+        com.example.runningapp.profile.dayOfMonth
+    </string>
+    <string-array name="distance_units_array">
+        <item>kilometers</item>
+        <item>meters</item>
+    </string-array>
+    <string-array name="time_units_array">
+        <item>week</item>
+        <item>month</item>
+    </string-array>
+
+    <!-- Home fragment -->
+    <string name="content_description_start_a_activity">Start a activity</string>
+    <string name="home_fragment_start_a_activity">Start a Activity</string>
+    <string name="home_fragment_check_heart_rate">Check Heart Rate</string>
+    <string name="content_description_measure_heart_rate">Measure heart rate</string>
+    <string name="home_page_complete_message">Complete</string>
+    <string name="home_page_finished_message">Finished</string>
+    <string name="workout_details_manifest_label">Workout Details</string>
+    <string name="heartRate_manifest_label">HeartRate</string>
 
 
 </resources>

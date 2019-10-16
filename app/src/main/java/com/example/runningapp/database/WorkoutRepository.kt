@@ -26,4 +26,8 @@ class WorkoutRepository(private val workoutDao: WorkoutDao) {
         workoutDao.deleteWorkout(workout)
     }
 
+    suspend fun getLastTrainings(startDate: Long): List<Workout> {
+        return workoutDao.getLastTrainings(startDate)
+    }
+
 }

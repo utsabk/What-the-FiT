@@ -21,10 +21,10 @@
             android:textAlignment="center">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
                 android:layout_gravity="center"
-                android:src="@drawable/heartbeat" />
+                android:src="@drawable/health" />
 
             <TextView
                 android:id="@+id/place_finger_txt_view"
@@ -50,7 +50,7 @@
             android:id="@+id/after_finger_placed_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="70dp"
             android:gravity="start"
             android:orientation="vertical">
 
@@ -78,13 +78,47 @@
                 android:textAlignment="center"
                 android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/heartrate_measured"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="80dp"
-                android:textAlignment="center"
-                android:textSize="50sp" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/heartrate_progress_bar_ConstraintLayout"
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                android:layout_margin="@dimen/heart_rate_pro_bar_margin">
+
+                <ProgressBar
+                    android:id="@+id/heartrate_progress_bar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:indeterminate="false"
+                    android:progress="0"
+                    android:max="100"
+                    android:progressDrawable="@drawable/custom_progressbar_heartrate"
+                    android:secondaryProgress="0"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/measured_percentage_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="20sp"
+                    android:textColor="@color/pro_bar_heartrate_end_color"
+                    android:layout_alignStart="@+id/heartrate_progress_bar"
+                    android:layout_alignTop="@+id/heartrate_progress_bar"
+                    android:layout_alignEnd="@+id/heartrate_progress_bar"
+                    android:layout_alignBottom="@+id/heartrate_progress_bar"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
         </LinearLayout>
 

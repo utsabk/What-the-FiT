@@ -21,10 +21,10 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
             android:textAlignment="center"
-            android:src="@drawable/heartbeat" />
+            android:src="@drawable/health" />
 
         <TextView
             android:id="@+id/heart_rate_value"
@@ -39,6 +39,7 @@
     <com.jjoe64.graphview.GraphView
         android:id="@+id/myGraph"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
 
 </LinearLayout>
