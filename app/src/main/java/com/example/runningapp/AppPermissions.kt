@@ -14,6 +14,8 @@ const val LOCATION_REQUEST_CODE = 101
 
 const val BODY_SENSOR_REQUEST_CODE = 100
 
+const val CAMERA_REQUEST_CODE = 99
+
 class AppPermissions(val context: Context?, val activity: Activity) {
     fun checkLocationPermission(map: GoogleMap) {
 
@@ -68,6 +70,19 @@ class AppPermissions(val context: Context?, val activity: Activity) {
             } else {
                 makeBodySensorRequest()
             }
+        }
+
+    }
+
+    fun checkCameraPermission() {
+        val permission = ContextCompat.checkSelfPermission(context!!, Manifest.permission.CAMERA)
+
+        if (Build.VERSION.SDK_INT >= 23 && permission != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                activity,
+                arrayOf(Manifest.permission.CAMERA),
+                CAMERA_REQUEST_CODE
+            )
         }
 
     }

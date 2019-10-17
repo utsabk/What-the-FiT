@@ -20,26 +20,33 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.runningapp.services.RunningTrackerService
 import com.example.runningapp.ui.activity.RunningTrackerActivity.Companion.REQUEST_CHECK_SETTINGS
 import com.example.runningapp.ui.help.HelpActivity
+import com.example.runningapp.utils.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlin.system.exitProcess
 
 
-class MainActivity  : AppCompatActivity() {
-    private lateinit var currentDestination:NavDestination
+class MainActivity : AppCompatActivity() {
+    private lateinit var currentDestination: NavDestination
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val sharedPreferenceUtil = PrefUtils(this)
+        Theme.setTheme(sharedPreferenceUtil.getSavedTheme())
+
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        val userDataSharedPref =
-            getSharedPreferences(getString(R.string.preference_key), Context.MODE_PRIVATE)
-        if (userDataSharedPref.getBoolean(getString(R.string.preference_first_launch), true)) {
-            if (userDataSharedPref.getBoolean(getString(R.string.preference_first_launch), true)) {
-                with(userDataSharedPref.edit()) {
-                    putBoolean(getString(R.string.preference_first_launch), false)
+        val sharedPreferences =
+            getSharedPreferences(MAIN_ACTIVITY_PREFERENCE_FILE_KEY, Context.MODE_PRIVATE)
+
+
+        if (sharedPreferences.getBoolean(PREFERENCE_FIRST_LAUNCH, true)) {
+            if (sharedPreferences.getBoolean(PREFERENCE_FIRST_LAUNCH, true)) {
+                with(sharedPreferences.edit()) {
+                    putBoolean(PREFERENCE_FIRST_LAUNCH, false)
                     apply()
                 }
                 showDialog()
@@ -47,12 +54,9 @@ class MainActivity  : AppCompatActivity() {
         }
 
 
-
-
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
         //default fragment is home fragment
-
 
 
         val navController = findNavController(R.id.nav_host_fragment)
@@ -66,7 +70,7 @@ class MainActivity  : AppCompatActivity() {
 
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-             currentDestination = destination
+            currentDestination = destination
             if (destination.id != R.id.navigation_profile) {
                 menu_setting.visibility = View.GONE
             } else menu_setting.visibility = View.VISIBLE
@@ -85,8 +89,6 @@ class MainActivity  : AppCompatActivity() {
         }
 
     }
-
-
 
 
     override fun onNewIntent(intent: Intent?) {

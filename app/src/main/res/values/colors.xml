@@ -28,6 +28,9 @@
     <color name="pro_bar_heartrate_start_color">#6D4A4A</color>
     <color name="pro_bar_heartrate_end_color">#F82502</color>
 
+    <color name="pro_bar_steps_start_color">#F4F7F4</color>
+    <color name="pro_bar_steps_center_color">#5AC75A</color>
+    <color name="pro_bar_steps_end_color">#8EFA02</color>
 
 
 

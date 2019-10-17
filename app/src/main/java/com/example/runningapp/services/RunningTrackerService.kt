@@ -25,6 +25,7 @@ import com.example.runningapp.listener.StepListener
 import com.example.runningapp.models.RouteSection
 import com.example.runningapp.ui.activity.RunningTrackerActivity
 import com.example.runningapp.ui.home.HomeFragment
+import com.example.runningapp.ui.profile.ProfileFragment
 import com.example.runningapp.utils.StepDetector
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
@@ -328,7 +329,7 @@ class RunningTrackerService : Service(), SensorEventListener, StepListener {
             numSteps++
 
             val intent = Intent()
-            intent.action = HomeFragment.BROADCAST_ACTION_STEPS
+            intent.action = ProfileFragment.BROADCAST_ACTION_STEPS
             intent.putExtra(STEPS_DATA_KEY, numSteps)
             sendBroadcast(intent)
         }

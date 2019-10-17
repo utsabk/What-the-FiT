@@ -1,7 +1,6 @@
 package com.example.runningapp.ui.profile
 
-import android.content.Context
-import android.content.SharedPreferences
+import android.content.*
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
@@ -12,18 +11,54 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.runningapp.R
+import com.example.runningapp.services.RunningTrackerService
 import com.example.runningapp.ui.history.WorkoutViewModel
 import com.example.runningapp.ui.history.WorkoutViewModelFactory
-import com.example.runningapp.utils.FileUtil
+import com.example.runningapp.utils.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.profile_achievements.*
-import kotlinx.android.synthetic.main.profile_resolution.*
-import java.util.*
 import java.util.concurrent.TimeUnit
 
 class ProfileFragment : Fragment() {
 
     private var sharedPref: SharedPreferences? = null
+
+
+    companion object {
+
+        const val BROADCAST_ACTION_STEPS =
+            "com.example.runningapp.ui.home.homefragment.broadcastreceiversteps"
+
+        private var calcSteps: Int = 0
+
+        var totalSteps: Int = 0
+
+    }
+
+    private val stepsBroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            val action = intent!!.action
+
+            when (action) {
+                BROADCAST_ACTION_STEPS -> {
+
+                    calcSteps = intent.getIntExtra(RunningTrackerService.STEPS_DATA_KEY, 0)
+
+                    val sharedPreference = PrefUtils(context!!)
+                    totalSteps = sharedPreference.getValueInt("Steps") + calcSteps
+
+                    steps_taken_so_far.text = totalSteps.toString()
+                    goal_steps.text = "/".plus("1000 steps")
+                    progressBar_steps.progress = totalSteps
+
+                }
+            }
+
+        }
+
+    }
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,7 +73,7 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Log.d("Tag", "Inside onViewCreated")
         sharedPref =
-            activity?.getSharedPreferences(getString(R.string.preference_key), Context.MODE_PRIVATE)
+            activity?.getSharedPreferences(USER_DATA_PREFERENCE_FILE_KEY, Context.MODE_PRIVATE)
 
         val viewModel =
             WorkoutViewModelFactory(activity!!.application).create(WorkoutViewModel::class.java)
@@ -86,53 +121,40 @@ class ProfileFragment : Fragment() {
         })
 
 
-
-
-
-
-        resolution_save_button.setOnClickListener {
-            val distance = resolution_distance.text.toString().toFloat()
-            val distanceUnit = resolution_distance_unit.selectedItemId
-            val timeUnit = resolution_time_unit.selectedItemId
-
-
-
-            with(sharedPref!!.edit()) {
-                putFloat(
-                    getString(R.string.preference_distance),
-                    if (distanceUnit == 0L) distance * 1000 else distance
-                )
-                putLong(getString(R.string.preference_time_unit), timeUnit)
-                putInt(getString(R.string.preference_day_of_month),Calendar.DAY_OF_MONTH)
-                apply()
-
-            }
-
-            resolution_distance.text.clear()
-
-        }
-
     }
 
     override fun onResume() {
         super.onResume()
         Log.d("Tag", "Inside onResume")
         sharedPref =
-            activity?.getSharedPreferences(getString(R.string.preference_key), Context.MODE_PRIVATE)
+            activity?.getSharedPreferences(USER_DATA_PREFERENCE_FILE_KEY, Context.MODE_PRIVATE)
 
-        val bitmap = BitmapFactory.decodeFile(FileUtil.getOrCreateProfileImageFile(context!!, "image/jpeg").path)
-        profile_user_image.setImageBitmap(Bitmap.createScaledBitmap(bitmap,120, 120, false)?:
-        BitmapFactory.decodeResource(resources, R.drawable.ic_add_a_photo_themed_24dp))
 
-        val firstname = sharedPref!!.getString(getString(R.string.preference_first_name), "John")
-        val lastname = sharedPref!!.getString(getString(R.string.preference_last_name), "Doe")
+        val bitmap = BitmapFactory.decodeFile(
+            FileUtil.getOrCreateProfileImageFile(
+                context!!,
+                "image/jpeg"
+            ).path
+        )
+        if (bitmap != null) {
+            val scaleBitmap = Bitmap.createScaledBitmap(bitmap, 120, 120, false)
+            profile_user_image.setImageBitmap(scaleBitmap)
+        } else profile_user_image.setImageBitmap(
+            BitmapFactory.decodeResource(
+                resources,
+                R.drawable.ic_add_a_photo_themed_24dp
+            )
+        )
+
+        val firstname = sharedPref!!.getString(PREFERENCE_FIRST_NAME, "John")
+        val lastname = sharedPref!!.getString(PREFERENCE_LAST_NAME, "Doe")
         profile_user_name.text = firstname.plus(" ").plus(lastname)
         profile_user_height.text =
-            (sharedPref!!.getInt(getString(R.string.preference_height), 70)).toString()
+            (sharedPref!!.getInt(PREFERENCE_HEIGHT, 165)).toString()
         profile_user_weight.text =
-            (sharedPref!!.getInt(getString(R.string.preference_weight), 165)).toString()
+            (sharedPref!!.getInt(PREFERENCE_WEIGHT, 70)).toString()
 
-        when (sharedPref!!.getInt(getString(R.string.preference_gender), 0)) {
+        when (sharedPref!!.getInt(PREFERENCE_GENDER, 0)) {
             0 -> {
                 profile_gender.text = getString(R.string.male)
             }
@@ -142,6 +164,34 @@ class ProfileFragment : Fragment() {
             else -> return
         }
 
+
+        // Progressive bar
+        if (!RunningTrackerService.pauseService) {
+            val intentFilter = IntentFilter()
+            intentFilter.addAction(BROADCAST_ACTION_STEPS)
+            activity!!.registerReceiver(stepsBroadcastReceiver, intentFilter)
+        }
+
+        val sharedPreference = PrefUtils(context!!)
+        if (RunningTrackerService.stepCalcPaused) {
+            totalSteps = sharedPreference.getValueInt(PREFERENCE_STEPS)
+
+        } else {
+            totalSteps = sharedPreference.getValueInt(PREFERENCE_STEPS) + calcSteps
+        }
+        steps_taken_so_far.text = totalSteps.toString()
+        goal_steps.text = "/".plus("1000 steps")
+        progressBar_steps.progress = totalSteps
+
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        try {
+            activity!!.unregisterReceiver(stepsBroadcastReceiver)
+        } catch (e: IllegalArgumentException) {
+        }
+    }
+
 
 }

@@ -41,7 +41,7 @@
     <dimen name="box_padding">12dp</dimen>
 
     <dimen name="profile_page_padding">10dp</dimen>
-    <dimen name="home_page_padding">15dp</dimen>
+    <dimen name="home_page_padding">8dp</dimen>
     <dimen name="home_page_item_padding">10dp</dimen>
 
     <dimen name="heart_rate_pro_bar_margin">20dp</dimen>

@@ -23,7 +23,8 @@ import com.example.runningapp.WorkoutDetailsActivity
 import com.example.runningapp.models.RouteSection
 import com.example.runningapp.services.RunningTrackerService
 import com.example.runningapp.ui.home.HomeFragment
-import com.example.runningapp.utils.PrefUtils
+import com.example.runningapp.ui.profile.ProfileFragment
+import com.example.runningapp.utils.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener
@@ -102,7 +103,6 @@ class RunningTrackerActivity : AppCompatActivity(),
                     time.base = SystemClock.elapsedRealtime() - measuredTimeInMillis
                 }
                 BROADCAST_ACTION_LOCATION -> {
-                    if (this@RunningTrackerActivity == null) return
                     routeSections =
                         intent.getParcelableArrayListExtra(RunningTrackerService.ROUTE_SECTIONS_DATA_KEY)
                     context?.let {
@@ -115,7 +115,7 @@ class RunningTrackerActivity : AppCompatActivity(),
                         tracked_speed.text = String.format("%.2f", speed)
 
 
-                        val weight =  sharedPref!!.getInt(getString(R.string.preference_weight), 65)
+                        val weight =  sharedPref!!.getInt(PREFERENCE_WEIGHT, 65)
                         measuredCalories = (0.001033416853125 * weight.toDouble() * distanceInMeters).toInt()
                         calories_burned.text = measuredCalories.toString()
                     }
@@ -133,9 +133,9 @@ class RunningTrackerActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
 
-        sharedPref = getSharedPreferences(getString(R.string.preference_key),Context.MODE_PRIVATE)
+        sharedPref = getSharedPreferences(RUNNING_TRACKER_PREFERENCE_FILE_KEY,Context.MODE_PRIVATE)
 
-        timerState = TimerState.values()[sharedPref!!.getInt(getString(R.string.timer_state), 0)]
+        timerState = TimerState.values()[sharedPref!!.getInt(TIMER_STATE, 0)]
 
 
         when (timerState) {
@@ -176,7 +176,7 @@ class RunningTrackerActivity : AppCompatActivity(),
             intentFilter.addAction(BROADCAST_ACTION_LOCATION)
             intentFilter.addAction(BROADCAST_ACTION_TIME)
             intentFilter.addAction(BROADCAST_ACTION_STOP_TIMER)
-            intentFilter.addAction(HomeFragment.BROADCAST_ACTION_STEPS)
+            intentFilter.addAction(ProfileFragment.BROADCAST_ACTION_STEPS)
             this.registerReceiver(runningTrackerBroadcastReceiver, intentFilter)
 
             // Start the service from here
@@ -424,11 +424,8 @@ class RunningTrackerActivity : AppCompatActivity(),
         go_fab_idle.show()
 
         //Save steps to SharePreferences
-
         val sharedPreference = PrefUtils(this)
-        sharedPreference.saveInt("Steps", HomeFragment.totalSteps)
-        sharedPreference.saveInt("DISTANCE_WITH_STEPS", HomeFragment.totalDistance.toInt())
-
+        sharedPreference.saveInt(PREFERENCE_STEPS, ProfileFragment.totalSteps)
 
         if (localRouteSections.size < 1) return
         val intent = Intent(this, WorkoutDetailsActivity::class.java)
@@ -456,7 +453,7 @@ class RunningTrackerActivity : AppCompatActivity(),
         } catch (e: IllegalArgumentException) {
         }
         with(sharedPref!!.edit()) {
-            putInt(getString(R.string.timer_state), timerState.ordinal)
+            putInt(TIMER_STATE, timerState.ordinal)
             commit()
         }
     }

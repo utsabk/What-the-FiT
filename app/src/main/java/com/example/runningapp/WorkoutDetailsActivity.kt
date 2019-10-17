@@ -13,6 +13,8 @@ import com.example.runningapp.models.RouteSection
 import com.example.runningapp.ui.activity.RunningTrackerActivity
 import com.example.runningapp.ui.history.WorkoutViewModel
 import com.example.runningapp.ui.history.WorkoutViewModelFactory
+import com.example.runningapp.utils.PREFERENCE_WEIGHT
+import com.example.runningapp.utils.USER_DATA_PREFERENCE_FILE_KEY
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -58,8 +60,8 @@ class WorkoutDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
             status.isFocusable = false
         }
 
-        sharedPref = getSharedPreferences(getString(R.string.preference_key), Context.MODE_PRIVATE)
-        val weight = sharedPref!!.getInt(getString(R.string.preference_weight), 65)
+        sharedPref = getSharedPreferences(USER_DATA_PREFERENCE_FILE_KEY, Context.MODE_PRIVATE)
+        val weight = sharedPref!!.getInt(PREFERENCE_WEIGHT, 65)
         recommendedWaterIntake = (12F / 3_720_000F * weight * measuredTimeInMillis).roundToInt()
 
         summary_measured_time.text =

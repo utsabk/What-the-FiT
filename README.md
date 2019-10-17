@@ -28,14 +28,15 @@ git clone gitlab.com/khan.alishup/what-the-fit.git
 <div align="center">
    <img src="app/src/main/res/raw/home_light.jpg" width="20%" alt="Home page light theme"/>
    <img src="app/src/main/res/raw/help_ar.jpg" width="20%" alt="Help page" />
-   <img src="app/src/main/res/raw/profile.jpg" width="20%" alt="Profile page" />
+   <img src="app/src/main/res/raw/profile.jpg" width="20%" alt="Profile light page" />
    <img src="app/src/main/res/raw/collect_data.jpg" width="20%" alt="Collect data" />
    <img src="app/src/main/res/raw/map_ra.jpg" width="20%" alt="Start activity" />
    <img src="app/src/main/res/raw/workout_details.jpg" width="20%" alt="Workout details" />
    <img src="app/src/main/res/raw/history.jpg" width="20%" alt="History page" />
-   <img src="app/src/main/res/raw/setting.jpg" width="20%" alt="Change theme" />
+   <img src="app/src/main/res/raw/setting.jpg" width="20%" alt="Setting page" />
    <img src="app/src/main/res/raw/edit_profile.jpg" width="20%" alt="Change profile" />
    <img src="app/src/main/res/raw/home_dark.jpg" width="20%" alt="Home page dark theme"/>
+   <img src="app/src/main/res/raw/profile_dark.jpg" width="20%" alt="Profile dark page" />
    <img src="app/src/main/res/raw/put_finger.jpg" width="20%" alt="Put finger on the sensor"/>
    <img src="app/src/main/res/raw/measuring_light.jpg" width="20%" alt="Measure Heart Rate" />
    <img src="app/src/main/res/raw/measuring_dark.jpg" width="20%" alt="Measure Heart Rate" />

@@ -12,6 +12,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/profile_page_padding"
+    android:layout_marginBottom="?attr/actionBarSize"
     android:orientation="vertical">
 
     <LinearLayout
@@ -121,21 +122,65 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <TextView
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/progressBarContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="@string/profile_set_a_goal"
-        android:textColor="@color/colorPrimaryDark"
-        android:textStyle="bold" />
+        android:layout_height="200dp"
+        android:layout_margin="8dp"
+        android:padding="@dimen/home_page_padding">
+
+        <ProgressBar
+            android:id="@+id/progressBar_steps"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:indeterminate="false"
+            android:progress="0"
+            android:max="1000"
+            android:progressDrawable="@drawable/custom_progressbar_steps"
+            android:secondaryProgress="0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignStart="@+id/progressBar_steps"
+            android:layout_alignTop="@+id/progressBar_steps"
+            android:layout_alignEnd="@+id/progressBar_steps"
+            android:layout_alignBottom="@+id/progressBar_steps"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" >
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/steps_taken_so_far"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="40sp"
+                android:textStyle="bold"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/goal_steps"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="12sp" />
+
+        </LinearLayout>
 
 
-    <include
-        layout="@layout/profile_resolution"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="?attr/actionBarSize"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </LinearLayout>
 </ScrollView>

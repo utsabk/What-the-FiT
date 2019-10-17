@@ -5,10 +5,6 @@ import android.content.SharedPreferences
 import com.example.runningapp.R
 
 class PrefUtils (val context: Context) {
-    private val PREFS_NAME = "RunningAppPref"
-    private val PREFERENCE_KEY_THEME = "Theme"
-    private val SETTING_PREFERENCE_FILE_KEY = "SettingPreference"
-
 
     val sharedPref: SharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
@@ -18,7 +14,7 @@ class PrefUtils (val context: Context) {
 
         editor.putString(KEY_NAME, text)
 
-        editor!!.commit()
+        editor.commit()
     }
 
     fun saveInt(KEY_NAME: String, value: Int) {
